@@ -53,10 +53,13 @@ const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:image" content={ogImage} />
 <meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content={ogWidth} />
 <meta property="og:image:height" content={ogHeight} />
 <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
 <meta property="og:locale" content={site.locale} />
+{/* Facebook page link (shows "Visit Page" in shared posts) */}
+<meta property="article:publisher" content={site.url} />
 
 {/* Twitter Card */}
 <meta name="twitter:card" content="summary_large_image" />
