@@ -1,9 +1,7 @@
 /* ───────────────────────────────────────────────────────────
-   Font imports — Fraunces (serif headings) + Inter (sans body).
-   @import MUST precede @tailwind/@layer statements.
-   For production, self-host with @fontsource/* for best performance.
+   Fonts — self-hosted via @fontsource (no Google CDN round-trip).
+   Imported in Base.astro layout. No @import here = no render block.
    ─────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
