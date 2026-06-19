@@ -17,8 +17,8 @@ export const site = {
 export const contact = {
   addressLine1: 'Song Tepo Beach',
   addressLine2: 'Nusa Ceningan, Klungkung, Bali, Indonesia',
-  whatsapp: '+62 812 3766 6330',
-  whatsappLink: 'https://wa.me/6281237666330',
+  whatsapp: '+62 822 6629 4250',
+  whatsappLink: 'https://wa.me/6282266294250',
   email: 'hello@segaraseasideresort.com',
   instagram: '@segaraseaside',
   instagramUrl: 'https://www.instagram.com/segaraseaside/',
