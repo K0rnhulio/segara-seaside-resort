@@ -18,7 +18,7 @@ interface Props {
 const {
   title,
   description = site.description,
-  image = '/og-default.svg',
+  image = '/images/og-share.jpg', // default social share image (1200x630 JPG)
   canonical,
   noindex = false,
   schema,
@@ -29,6 +29,11 @@ const {
 const fullTitle = /segara/i.test(title) ? title : `${title} | ${site.name}`;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, site.url);
 const ogImage = new URL(image, site.url);
+
+// Social image dimensions — helps platforms render cards faster
+const isDefaultOG = image === '/images/og-share.jpg';
+const ogWidth = isDefaultOG ? 1200 : 1200;
+const ogHeight = isDefaultOG ? 630 : 630;
 const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
@@ -40,20 +45,25 @@ const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 <link rel="canonical" href={canonicalURL} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-{/* Open Graph */}
+{/* Open Graph — rich social sharing (Facebook, WhatsApp, LinkedIn, etc.) */}
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content={site.name} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image:width" content={ogWidth} />
+<meta property="og:image:height" content={ogHeight} />
+<meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
 <meta property="og:locale" content={site.locale} />
 
-{/* Twitter */}
+{/* Twitter Card */}
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={`${site.name} — ${site.tagline}`} />
 
 {/* JSON-LD structured data */}
 {
