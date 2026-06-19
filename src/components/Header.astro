@@ -1,0 +1,189 @@
+---
+/**
+ * Persistent header — transparent over hero, solid mist on scroll.
+ * Mobile: hamburger → full-screen overlay. CTA always visible.
+ * See wireframes §0 + §4.1.
+ */
+import { nav, cta, site } from '@data/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  data-header
+>
+  <div class="container-bleed">
+    <nav
+      class="flex items-center justify-between py-4 transition-all duration-300"
+      data-nav-inner
+    >
+      {/* Logo */}
+      <a
+        href="/"
+        class="flex items-center transition-opacity duration-300 hover:opacity-80"
+        data-logo
+        aria-label={`${site.name} — home`}
+      >
+        <img
+          src="/images/logo.png"
+          alt={`${site.name} logo`}
+          class="h-10 w-auto md:h-12"
+          width="180"
+          height="48"
+        />
+      </a>
+
+      {/* Desktop nav */}
+      <ul class="hidden items-center gap-7 lg:flex">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'text-sm transition-colors duration-200 hover:text-lagoon-600',
+                  isActive(item.href)
+                    ? 'text-lagoon-600 font-medium'
+                    : 'text-ink/80',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      {/* CTA + mobile toggle */}
+      <div class="flex items-center gap-3">
+        <a href={cta.href} class="btn-primary hidden sm:inline-flex">
+          {cta.label}
+        </a>
+        <button
+          type="button"
+          class="lg:hidden"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          data-menu-toggle
+        >
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-icon-menu>
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  {/* Mobile overlay menu */}
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 hidden h-screen w-screen flex-col bg-mist lg:hidden"
+    data-mobile-menu
+  >
+    <div class="container-bleed flex flex-1 flex-col">
+      {/* Logo top-left + close button top-right */}
+      <div class="flex items-center justify-between py-4">
+        <a href="/" aria-label={`${site.name} — home`} data-mobile-logo>
+          <img
+            src="/images/logo.png"
+            alt={`${site.name} logo`}
+            class="h-10 w-auto"
+            width="180"
+            height="48"
+          />
+        </a>
+        <button
+          type="button"
+          aria-label="Close menu"
+          data-menu-close
+          class="text-ink hover:text-lagoon-600"
+        >
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="18" y1="6" x2="6" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <ul class="mt-16 flex flex-col gap-6">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="font-serif text-3xl text-ink hover:text-lagoon-600"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={cta.href} class="btn-primary mt-10 w-full text-base">
+        {cta.label}
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Transparent-over-hero state — logo adapts to dark hero background.
+     Uses brightness invert so a colored logo stays legible over the video. */
+  [data-header]:not(.is-scrolled) [data-logo] img {
+    filter: brightness(0) invert(1);
+  }
+  [data-header].is-scrolled {
+    background-color: #f7f9f8;
+    border-bottom: 1px solid #e2e8e7;
+  }
+  [data-header]:not(.is-scrolled) nav {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  [data-header].is-scrolled nav {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+  }
+</style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const menu = document.querySelector('[data-mobile-menu]');
+
+  // Solid header after scrolling past hero region
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 40) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu open/close
+  const setMenu = (open: boolean) => {
+    menu?.classList.toggle('hidden', !open);
+    toggle?.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  toggle?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    setMenu(!isOpen);
+  });
+
+  // Close button inside the mobile menu
+  document.querySelector('[data-menu-close]')?.addEventListener('click', () => setMenu(false));
+
+  menu?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => setMenu(false)),
+  );
+</script>

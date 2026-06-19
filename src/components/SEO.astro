@@ -1,0 +1,63 @@
+---
+/**
+ * SEO <head> manager — centralises title, meta, OG, Twitter, canonical, JSON-LD.
+ * Every page passes its own title/description; defaults come from site data.
+ * See docs/01-keyword-research.md §5 (SEO content rules).
+ */
+import { site } from '@data/site';
+
+interface Props {
+  title: string; // page title — should lead with primary keyword
+  description?: string;
+  image?: string; // OG image path
+  canonical?: string; // override canonical URL
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Record<string, unknown>[]; // JSON-LD
+}
+
+const {
+  title,
+  description = site.description,
+  image = '/og-default.svg',
+  canonical,
+  noindex = false,
+  schema,
+} = Astro.props;
+
+// Title formula: "Primary Keyword | Brand" (per keyword doc §5.2)
+// Only append brand if the title doesn't already contain "Segara"
+const fullTitle = /segara/i.test(title) ? title : `${title} | ${site.name}`;
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, site.url);
+const ogImage = new URL(image, site.url);
+const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+{/* Open Graph */}
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={site.locale} />
+
+{/* Twitter */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{/* JSON-LD structured data */}
+{
+  schemaArray.map((s) => (
+    <script type="application/ld+json" set:html={JSON.stringify(s)} />
+  ))
+}

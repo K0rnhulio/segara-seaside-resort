@@ -1,0 +1,310 @@
+---
+/**
+ * Wellness page — /wellness
+ * Direction (client, 2026-06-20): calm, authentic, integrated into the stay —
+ * NOT a separate spa menu. Sauna + cold plunge = hero offering. Infinity pool =
+ * daily anchor. Natural island wellness around it.
+ *
+ * Keeps the genuine hardware facts from the old sauna page (Harvia, 90°C,
+ * Finnish cedar, "Bali's only") but in a warmer, sensory tone. No unverified
+ * services (yoga/massage) — stays truthful to what actually exists.
+ */
+import Base from '@layouts/Base.astro';
+import { site, contact, booking } from '@data/site';
+
+// The signature ritual — calmer framing of heat/cold/rest
+const ritualSteps = [
+  {
+    step: '01',
+    title: 'The Heat',
+    body: 'Step into the warmth of the Finnish cedar sauna. Heated to 90°C by a genuine Harvia stone heater, with panoramic windows facing west over the Indian Ocean. Feel your body open and the day’s tension melt away.',
+  },
+  {
+    step: '02',
+    title: 'The Cold',
+    body: 'Step out onto the open deck and into the cold plunge under the sky. The cool water resets your mind, sharpens your senses, and leaves you feeling completely awake and alive.',
+  },
+  {
+    step: '03',
+    title: 'The Rest',
+    body: 'Settle on the ocean-view deck, breathe the sea air, and let your body find its balance. Repeat the cycle two or three times — slowly, mindfully, with the rhythm of the waves.',
+  },
+];
+
+// Natural island wellness (truthful — no unverified services)
+const islandWellness = [
+  {
+    icon: 'beach',
+    title: 'Song Tepo Beach',
+    body: 'Swim, walk, or simply sit by the water. The beach is right in front of the resort — your morning reset, no booking required.',
+  },
+  {
+    icon: 'sunset',
+    title: 'Sunset from the Deck',
+    body: 'Watch the sky change colour over the Indian Ocean from the pool deck or sauna windows. A daily moment of stillness, built into every stay.',
+  },
+  {
+    icon: 'movement',
+    title: 'Gentle Island Movement',
+    body: 'Explore Nusa Ceningan and Nusa Lembongan by scooter or on foot. Easy, natural movement that feels less like exercise and more like adventure.',
+  },
+  {
+    icon: 'dining',
+    title: 'Mindful Dining',
+    body: 'Fresh juices, wholesome breakfasts, and light poolside fare from our restaurant. Wellness continues at the table, with the ocean as your backdrop.',
+  },
+];
+
+// Practical info (honest about what we know)
+const practicalInfo = [
+  {
+    q: 'When is the best time for the sauna and cold plunge?',
+    a: 'Many guests love the ritual in the morning to start the day fresh, or in the late afternoon as the sun begins to set over the ocean — the west-facing windows are spectacular at golden hour.',
+  },
+  {
+    q: 'Is the sauna available to all guests?',
+    a: 'Yes. The sauna and cold plunge are open to resort guests, and to day visitors with a minimum spend at the restaurant and bar.',
+  },
+  {
+    q: 'Do I need to book in advance?',
+    a: 'During busier times we recommend reserving your session in advance, as the sauna is one of our most popular experiences. Message us on WhatsApp to check availability.',
+  },
+  {
+    q: 'Can I combine wellness with my stay?',
+    a: 'Absolutely. Many guests build their whole stay around the ritual — morning sauna, ocean swim, pool, and a slow sunset. Room + Sauna packages are available when you book direct.',
+  },
+];
+
+// HealthAndBeautyBusiness schema (carried over from old sauna page)
+const wellnessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HealthAndBeautyBusiness',
+  name: 'Segara Seaside Resort – Ocean-View Sauna & Cold Plunge',
+  description:
+    "Bali's only ocean-view Finnish cedar sauna and cold plunge on Nusa Ceningan island. Open to resort guests and day visitors with minimum spend at the restaurant and bar.",
+  url: `${site.url}/wellness`,
+  telephone: '+628226629425',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Nusa Ceningan',
+    addressRegion: 'Bali',
+    addressCountry: 'ID',
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Wellness', item: `${site.url}/wellness` },
+  ],
+};
+
+// FAQPage schema for the practical-info section
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: practicalInfo.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<Base
+  title="Wellness | Ocean-View Sauna & Cold Plunge | Segara Resort"
+  description="Bali's only ocean-view Finnish cedar sauna and cold plunge on Nusa Ceningan. Infinity pool, natural island wellness. Open to guests and day visitors."
+  image="/images/general/pool-bar.jpg"
+  schema={[wellnessSchema, breadcrumbSchema, faqSchema]}
+>
+  {/* ─── HERO ─── */}
+  <section class="relative flex min-h-[70vh] items-center overflow-hidden bg-lagoon-700">
+    <img
+      src="/images/general/pool-bar.jpg"
+      alt="Ocean-view infinity pool at Segara Seaside Resort, Nusa Ceningan"
+      class="absolute inset-0 h-full w-full object-cover opacity-40"
+    />
+    <div class="container-bleed relative z-10 py-24 text-center text-white">
+      <p class="overline text-white/80">Wellness</p>
+      <h1 class="mt-4 text-[clamp(2.25rem,5vw,4rem)] text-white">
+        Wellness by the Ocean
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-white/85">
+        At Segara, wellness is not something you book — it’s something you feel every day.
+        Surrounded by the ocean on Nusa Ceningan, we’ve created simple but powerful ways to reset
+        your body and mind.
+      </p>
+    </div>
+  </section>
+
+  {/* ─── THE SIGNATURE RITUAL (hero offering) ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <p class="overline">The Signature Wellness Ritual</p>
+          <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Sauna &amp; Cold Plunge</h2>
+          <div class="mt-6 max-w-prose space-y-4 text-lg leading-relaxed text-ink/90">
+            <p>
+              This is the heart of wellness at Segara. Our guests often describe the sauna and cold
+              plunge ritual as the highlight of their stay. The heat opens the body, the cold resets
+              the mind, and doing it with the ocean just steps away creates a powerful sense of
+              renewal.
+            </p>
+            <p>
+              Our Finnish cedar sauna — the only one of its kind on Bali — is heated to 90°C by a
+              genuine Harvia stone heater, with panoramic windows facing west over the Indian Ocean.
+              Step outside onto the open deck and into the cold plunge under the open sky.
+            </p>
+          </div>
+
+          {/* Spec badges */}
+          <ul class="mt-8 flex flex-wrap gap-3">
+            <li class="rounded-full bg-seafoam-100 px-4 py-2 text-sm text-lagoon-700">🔥 90°C Harvia heater</li>
+            <li class="rounded-full bg-seafoam-100 px-4 py-2 text-sm text-lagoon-700">🪵 Finnish cedar</li>
+            <li class="rounded-full bg-seafoam-100 px-4 py-2 text-sm text-lagoon-700">🌊 West-facing ocean view</li>
+            <li class="rounded-full bg-seafoam-100 px-4 py-2 text-sm text-lagoon-700">❄️ Cold plunge</li>
+          </ul>
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-lg bg-seafoam-200">
+          <img
+            src="/images/general/outdoor.jpg"
+            alt="Ocean-view wellness deck at Segara Seaside Resort"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      {/* The ritual steps */}
+      <div class="mt-20">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="overline">The Ritual</p>
+          <h3 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">Heat, Cold, Rest</h3>
+          <p class="mt-4 text-slate">
+            A simple rhythm that leaves you feeling completely renewed. Move slowly, breathe deeply,
+            and let the ocean set the pace.
+          </p>
+        </div>
+        <div class="mt-12 grid gap-8 md:grid-cols-3">
+          {ritualSteps.map((s) => (
+            <div class="card p-8">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-lagoon-600 font-serif text-lg text-white">
+                {s.step}
+              </div>
+              <h4 class="mt-5 text-xl">{s.title}</h4>
+              <p class="mt-3 text-sm leading-relaxed text-slate">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── THE INFINITY POOL (daily anchor) ─── */}
+  <section class="section bg-mist">
+    <div class="container-content">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div class="order-2 aspect-[4/3] overflow-hidden rounded-lg bg-seafoam-200 lg:order-1">
+          <img
+            src="/images/general/pool-bar.jpg"
+            alt="Infinity pool blending into the ocean at Segara Seaside Resort"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="order-1 lg:order-2">
+          <p class="overline">Your Daily Anchor</p>
+          <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Infinity Pool &amp; Ocean</h2>
+          <div class="mt-6 max-w-prose space-y-4 leading-relaxed text-ink/90">
+            <p>
+              The infinity pool is the heart of daily life at Segara — not just a place to swim, but
+              the anchor of your wellness experience. Lounge as the water blends seamlessly into the
+              horizon, with the Indian Ocean stretching endlessly ahead.
+            </p>
+            <p>
+              Start your morning with a quiet swim, spend the afternoon between the pool and the
+              sauna, and end the day watching the sunset from the pool deck with a fresh juice or
+              cocktail in hand.
+            </p>
+          </div>
+          <ul class="mt-8 space-y-2 text-sm text-slate">
+            <li class="flex items-center gap-2"><span class="text-lagoon-600">✓</span> Morning swims to start the day</li>
+            <li class="flex items-center gap-2"><span class="text-lagoon-600">✓</span> Sunset views from the pool deck</li>
+            <li class="flex items-center gap-2"><span class="text-lagoon-600">✓</span> Pool bar with fresh juices &amp; cocktails</li>
+            <li class="flex items-center gap-2"><span class="text-lagoon-600">✓</span> Direct connection to the ocean</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── ISLAND WELLNESS ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Wellness in Harmony with Nusa Ceningan</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Natural Wellness, All Around You</h2>
+        <p class="mt-4 text-slate">
+          Beyond the sauna and the pool, wellness at Segara flows naturally from the island itself —
+          the beach, the sunsets, the gentle rhythm of island life.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {islandWellness.map((a) => (
+          <div class="card p-8 text-center">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+              {a.icon === 'beach' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20c4 0 4-2 8-2s4 2 8 2 4-2 4-2M12 14V4M9 7l3-3 3 3" /></svg>
+              )}
+              {a.icon === 'sunset' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="14" r="4" /><path d="M12 4v2M4 14H2M22 14h-2M5.6 8.4L4.2 7M18.4 8.4l1.4-1.4M2 18h20" /></svg>
+              )}
+              {a.icon === 'movement' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="18" r="2" /><circle cx="18" cy="16" r="2" /><path d="M8 18l4-8 4 6M12 10l2-4" /></svg>
+              )}
+              {a.icon === 'dining' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3v8a2 2 0 0 0 2 2v8M6 3v4M8 3v4M16 3v18M16 3c-2 0-2 5 0 6" /></svg>
+              )}
+            </div>
+            <h3 class="mt-5 text-lg">{a.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate">{a.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── PRACTICAL INFO (FAQ) ─── */}
+  <section class="section bg-seafoam-100">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Good to Know</p>
+        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">How to Enjoy Wellness at Segara</h2>
+      </div>
+      <div class="mx-auto mt-12 max-w-3xl divide-y divide-line">
+        {practicalInfo.map((item, i) => (
+          <details class="group py-5" name="wellness-faq" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg text-ink marker:hidden [&::-webkit-details-marker]:hidden">
+              <span>{item.q}</span>
+              <span class="mt-1 flex h-7 w-7 flex-none items-center justify-center rounded-full border border-line text-lagoon-600 transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="1" x2="7" y2="13" /><line x1="1" y1="7" x2="13" y2="7" /></svg>
+              </span>
+            </summary>
+            <p class="mt-4 max-w-prose leading-relaxed text-slate">{item.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-12 max-w-2xl text-center">
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href={booking.bookingUrl} class="btn-primary">Book a Room + Sauna ▸</a>
+          <a href={contact.whatsappLink} class="btn-secondary" target="_blank" rel="noopener">Ask About Sessions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

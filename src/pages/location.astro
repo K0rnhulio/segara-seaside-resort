@@ -1,0 +1,369 @@
+---
+/**
+ * Location page — /location
+ * Strategy (client, 2026-06-20): position Segara as a smart, peaceful choice
+ * NEAR Nusa Lembongan (high search volume) — quiet Ceningan + easy Lembongan access.
+ * Practical + emotional. Captures "Nusa Lembongan" traffic honestly.
+ *
+ * Content structure per client brief:
+ * Hero → Where We Are → Getting Here → Our Surroundings → Exploring Nearby →
+ * Why This Location → Practical Tips → CTA
+ */
+import Base from '@layouts/Base.astro';
+import { site, contact, booking } from '@data/site';
+
+// Getting here — step by step (practical, high-intent SEO)
+const gettingHereSteps = [
+  {
+    step: '01',
+    title: 'Fly into Bali',
+    body: 'Most guests arrive at Ngurah Rai International Airport (DPS) in Denpasar, Bali. From there, it’s about an hour by taxi to Sanur Harbour on the southeast coast.',
+  },
+  {
+    step: '02',
+    title: 'Fast boat to Nusa Lembongan',
+    body: 'From Sanur Harbour, take a fast boat to Nusa Lembongan. The crossing takes 30–45 minutes, with several daily departures from operators like Scoot, Arthamas Express, and SemayaOne.',
+  },
+  {
+    step: '03',
+    title: 'Cross the Yellow Bridge',
+    body: 'Once on Nusa Lembongan, it’s a short 5–10 minute scooter, taxi, or private transfer across the famous Yellow Bridge to reach us on peaceful Nusa Ceningan.',
+  },
+  {
+    step: '04',
+    title: 'Arrive at Segara',
+    body: 'We can help arrange your transfers from start to finish — just let us know your arrival details when you book, and we’ll take care of the rest.',
+  },
+];
+
+// Nearby things to do (helpful, not salesy)
+const nearbyThings = [
+  { title: 'Song Tepo Beach', body: 'Right in front of the resort — swimming, relaxing, and beach swings. Your morning swim is steps away.', distance: '0 min' },
+  { title: 'Yellow Bridge', body: 'The iconic footbridge connecting Nusa Ceningan and Nusa Lembongan. Cross it on foot or by scooter in minutes.', distance: '2–5 min walk' },
+  { title: 'Blue Lagoon Cliff Jump', body: 'Nusa Ceningan’s famous cliff-jumping spot — leap into the turquoise lagoon from 4 to 13 metres.', distance: '~10 min by scooter' },
+  { title: 'Nusa Lembongan Beaches', body: 'Jungut Batu Beach and Mushroom Bay — restaurants, beach clubs, and water activities on the livelier island.', distance: '~10–15 min' },
+  { title: 'Mangrove Forest', body: 'Explore the peaceful mangrove forest on the northeast coast of Nusa Lembongan by kayak or boat.', distance: '~15 min' },
+  { title: 'Sunset Spots', body: 'Some of the best sunset views in the Nusa Islands — right from our pool deck, sauna, or the beach.', distance: 'Right here' },
+];
+
+// Why this location works (conversion section)
+const locationBenefits = [
+  {
+    title: 'Quieter than central Nusa Lembongan',
+    body: 'Enjoy a calm, intimate atmosphere away from the crowds — without giving up convenience.',
+  },
+  {
+    title: 'Easy access to Nusa Lembongan',
+    body: 'The Yellow Bridge is just minutes away, so restaurants, beaches, and activities are always within reach.',
+  },
+  {
+    title: 'Direct beach access',
+    body: 'Song Tepo Beach is right in front of the resort — no travel needed for a morning swim or sunset stroll.',
+  },
+  {
+    title: 'The best of both islands',
+    body: 'Use Segara as your base to explore both Nusa Ceningan and Nusa Lembongan at your own pace.',
+  },
+];
+
+// Practical tips (trust & helpfulness)
+const practicalTips = [
+  {
+    q: 'What’s the best way to get around the islands?',
+    a: 'Scooters are the most popular way to explore both Nusa Ceningan and Nusa Lembongan. We can help arrange scooter rental, or arrange taxis and private transfers if you prefer not to drive. The Yellow Bridge is easy to cross on foot or by scooter.',
+  },
+  {
+    q: 'When is the best time to visit Nusa Lembongan and Nusa Ceningan?',
+    a: 'The dry season from April to October offers the best weather — clear skies, calm seas, and ideal conditions for snorkelling and island exploration. July and August are the busiest months, so book early. The wet season (November to March) is quieter and greener.',
+  },
+  {
+    q: 'What should I know about tides?',
+    a: 'The Nusa Islands have noticeable tidal changes, which affect swimming and boat access at certain beaches. Song Tepo Beach is generally swimmable, but the best snorkelling and diving happen at high tide. Ask our team for the daily tide times.',
+  },
+  {
+    q: 'How far is Segara from popular spots?',
+    a: 'We’re 2–5 minutes from the Yellow Bridge, about 10 minutes by scooter from Blue Lagoon, and 10–15 minutes from the main beaches and restaurants of Nusa Lembongan. Everything on both islands is within easy reach.',
+  },
+];
+
+// LocalBusiness / TouristAttraction schema
+const placeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LodgingBusiness',
+  name: site.name,
+  description:
+    'Oceanfront boutique resort on Nusa Ceningan, near Nusa Lembongan, Bali. Steps from Song Tepo Beach and the Yellow Bridge.',
+  url: `${site.url}/location`,
+  image: `${site.url}/images/general/resort-aerial.jpg`,
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -8.6968955,
+    longitude: 115.4498182,
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Song Tepo Beach',
+    addressLocality: 'Nusa Ceningan',
+    addressRegion: 'Bali',
+    addressCountry: 'ID',
+  },
+  hasMap: 'https://www.google.com/maps/place/Segara+Seaside+Resort',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Location', item: `${site.url}/location` },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: practicalTips.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<Base
+  title="Location | Segara Resort Nusa Ceningan, Near Nusa Lembongan"
+  description="Peaceful oceanfront setting on Nusa Ceningan, minutes from the Yellow Bridge and everything Nusa Lembongan offers. Steps from Song Tepo Beach."
+  image="/images/general/resort-aerial.jpg"
+  schema={[placeSchema, breadcrumbSchema, faqSchema]}
+>
+  {/* ─── HERO ─── */}
+  <section class="relative flex min-h-[60vh] items-center overflow-hidden bg-lagoon-700">
+    <img
+      src="/images/general/resort-aerial.jpg"
+      alt="Segara Seaside Resort on Nusa Ceningan, near the Yellow Bridge to Nusa Lembongan"
+      class="absolute inset-0 h-full w-full object-cover opacity-50"
+    />
+    <div class="container-bleed relative z-10 py-24 text-center text-white">
+      <p class="overline text-white/80">Location</p>
+      <h1 class="mt-4 text-[clamp(2.25rem,5vw,4rem)] text-white">
+        Our Location on Nusa Ceningan
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-white/85">
+        Peaceful oceanfront setting on Nusa Ceningan, just minutes from the Yellow Bridge and
+        everything Nusa Lembongan has to offer.
+      </p>
+    </div>
+  </section>
+
+  {/* ─── WHERE WE ARE + MAP ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <p class="overline">Where We Are</p>
+          <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">
+            On Nusa Ceningan, Near Nusa Lembongan
+          </h2>
+          <div class="mt-6 max-w-prose space-y-4 leading-relaxed text-ink/90">
+            <p>
+              Segara Seaside Resort is located on <strong>Nusa Ceningan</strong> — the smaller,
+              quieter island connected to <strong>Nusa Lembongan</strong> by the famous
+              <strong> Yellow Bridge</strong>. Many guests searching for resorts in Nusa Lembongan
+              choose to stay with us because it’s calmer here, but still incredibly convenient.
+            </p>
+            <p>
+              We sit directly on <strong>Song Tepo Beach</strong>, with the ocean right in front of
+              the resort. The Yellow Bridge is just a 2–5 minute walk away, giving you instant
+              access to the restaurants, beaches, and activities of Nusa Lembongan whenever you want
+              them.
+            </p>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span class="rounded-full bg-seafoam-100 px-4 py-2 text-sm text-lagoon-700">🌊 Song Tepo Beach</span>
+            <span class="rounded-full bg-seafoam-100 px-4 py-2 text-sm text-lagoon-700">🌉 Yellow Bridge — 2–5 min</span>
+            <span class="rounded-full bg-seafoam-100 px-4 py-2 text-sm text-lagoon-700">🚤 Sanur fast boat — 30 min</span>
+          </div>
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-lg bg-seafoam-200">
+          <iframe
+            title="Segara Seaside Resort location map — Song Tepo Beach, Nusa Ceningan"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7774.909644143069!2d115.44981820000001!3d-8.6968955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd26da731527811%3A0x639e2fe202921059!2sSegara%20Seaside%20Resort!5e1!3m2!1sde!2s!4v1781894673297!5m2!1sde!2s"
+            class="h-full w-full"
+            style="border:0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── GETTING HERE ─── */}
+  <section class="section bg-mist">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Getting Here</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">How to Get to Segara from Bali</h2>
+        <p class="mt-4 text-slate">
+          Reaching us is straightforward — and we can help arrange every step. Here’s how the
+          journey usually works.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {gettingHereSteps.map((s) => (
+          <div class="card p-8">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-lagoon-600 font-serif text-lg text-white">
+              {s.step}
+            </div>
+            <h3 class="mt-5 text-lg">{s.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate">{s.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-10 max-w-2xl rounded-lg border border-line bg-seafoam-100 p-6 text-center">
+        <p class="text-sm text-ink/80">
+          <strong>Total travel time from Bali airport:</strong> roughly 2–3 hours, including the
+          drive to Sanur and the boat crossing. We can arrange the entire journey for you — just ask
+          when you book.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── OUR SURROUNDINGS ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="max-w-2xl">
+        <p class="overline">Our Immediate Surroundings</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">
+          Steps from Song Tepo Beach &amp; the Yellow Bridge
+        </h2>
+        <p class="mt-5 max-w-prose text-slate">
+          Our location is one of our biggest advantages. You’re right on the beach, moments from the
+          bridge, and in a far more peaceful setting than the busier parts of Nusa Lembongan.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-2">
+        <div class="card overflow-hidden">
+          <div class="aspect-[4/3] overflow-hidden bg-seafoam-200">
+            <img src="/images/general/outdoor.jpg" alt="Song Tepo Beach in front of Segara Seaside Resort" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl">Song Tepo Beach</h3>
+            <p class="mt-2 text-sm text-slate">
+              Right in front of the resort. Swim, relax on the sand, or take photos on the beach
+              swings — all without leaving the property.
+            </p>
+          </div>
+        </div>
+        <div class="card overflow-hidden">
+          <div class="aspect-[4/3] overflow-hidden bg-seafoam-200">
+            <img src="/images/general/resort-aerial.jpg" alt="Yellow Bridge connecting Nusa Ceningan and Nusa Lembongan" class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl">The Yellow Bridge</h3>
+            <p class="mt-2 text-sm text-slate">
+              Just 2–5 minutes away on foot. The iconic bridge links Nusa Ceningan and Nusa Lembongan,
+              giving you easy access to both islands whenever you like.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── EXPLORING NEARBY ─── */}
+  <section class="section bg-seafoam-100">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Exploring Nusa Lembongan &amp; Nusa Ceningan</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Things to Do Near Segara</h2>
+        <p class="mt-4 text-slate">
+          From our doorstep, the best of both islands is within easy reach. Here’s what’s nearby.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {nearbyThings.map((t) => (
+          <div class="card p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg">{t.title}</h3>
+              <span class="rounded-full bg-seafoam-200 px-3 py-1 text-xs text-lagoon-700">{t.distance}</span>
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-slate">{t.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── WHY THIS LOCATION ─── */}
+  <section class="section bg-lagoon-700 text-white">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline text-white/70">Why This Location Works</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)] text-white">The Best of Both Islands</h2>
+        <p class="mt-4 text-white/85">
+          Choosing Segara means choosing peace without giving up convenience. Here’s why our guests
+          love the location.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {locationBenefits.map((b) => (
+          <div class="rounded-lg border border-white/15 p-8">
+            <h3 class="font-serif text-lg text-white">{b.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/80">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── PRACTICAL TIPS (FAQ) ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Useful Information</p>
+        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">Practical Tips for Your Stay</h2>
+      </div>
+      <div class="mx-auto mt-12 max-w-3xl divide-y divide-line">
+        {practicalTips.map((item, i) => (
+          <details class="group py-5" name="location-faq" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg text-ink marker:hidden [&::-webkit-details-marker]:hidden">
+              <span>{item.q}</span>
+              <span class="mt-1 flex h-7 w-7 flex-none items-center justify-center rounded-full border border-line text-lagoon-600 transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="1" x2="7" y2="13" /><line x1="1" y1="7" x2="13" y2="7" /></svg>
+              </span>
+            </summary>
+            <p class="mt-4 max-w-prose leading-relaxed text-slate">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── FINAL CTA ─── */}
+  <section class="relative overflow-hidden">
+    <div
+      class="bg-cover bg-center py-20 md:py-28"
+      style="background-image: linear-gradient(rgba(15,61,71,0.6), rgba(15,61,71,0.6)), url('/images/cta-banner.svg');"
+    >
+      <div class="container-content text-center text-white">
+        <h2 class="text-[clamp(2rem,4vw,3rem)] text-white">Ready to Experience This Location?</h2>
+        <p class="mx-auto mt-5 max-w-lg text-white/85">
+          Stay on peaceful Nusa Ceningan with easy access to everything Nusa Lembongan offers.
+          Book directly for the best rates and personal service.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href={booking.bookingUrl} class="btn-primary text-base">Book Your Stay at Segara ▸</a>
+          <a href={contact.whatsappLink} class="btn-secondary border-white/70 text-white hover:bg-white/10" target="_blank" rel="noopener">Ask About Transfers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

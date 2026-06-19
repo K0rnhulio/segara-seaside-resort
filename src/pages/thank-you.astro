@@ -1,0 +1,45 @@
+---
+/**
+ * Thank-you page — /thank-you
+ * Shown after the contact form is submitted. Warm confirmation + next steps.
+ */
+import Base from '@layouts/Base.astro';
+import { contact, booking } from '@data/site';
+---
+
+<Base
+  title="Thank You | Segara Seaside Resort"
+  description="Thanks for getting in touch with Segara Seaside Resort. We'll reply within a few hours."
+  noindex={true}
+>
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="mx-auto max-w-xl text-center">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12l5 5L20 7" /></svg>
+        </div>
+        <h1 class="mt-6 text-[clamp(2rem,4vw,3rem)]">Thank You</h1>
+        <p class="mt-4 text-lg text-slate">
+          Your message is on its way to us. We’ll reply within a few hours during the day — and
+          often much sooner.
+        </p>
+        <p class="mt-4 text-sm text-slate">
+          For urgent requests, the fastest way to reach us is WhatsApp.
+        </p>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href={contact.whatsappLink} class="btn-primary" target="_blank" rel="noopener">
+            Message us on WhatsApp ▸
+          </a>
+          <a href={booking.bookingUrl} class="btn-secondary">
+            Book Direct &amp; Save
+          </a>
+        </div>
+
+        <p class="mt-10">
+          <a href="/" class="text-sm text-lagoon-600 hover:underline">← Back to home</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

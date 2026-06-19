@@ -1,0 +1,297 @@
+---
+/**
+ * Room detail page — dynamic route /rooms/[slug].
+ * Template applies to all 3 rooms (villa + 2 bungalows).
+ * Per docs/05-wireframes.md §3 (Room Detail Page).
+ *
+ * Booking: Option C hybrid — "Book" links to SiteMinder URL (placeholder now,
+ * embedded widget later). See booking config in src/data/site.ts.
+ */
+import Base from '@layouts/Base.astro';
+import { rooms, site, contact, booking } from '@data/site';
+
+// Static prerender of all rooms → /rooms/sunset-villa, /rooms/ocean-bungalow, /rooms/bungalow
+export function getStaticPaths() {
+  return rooms.map((room) => ({ params: { slug: room.slug }, props: { room } }));
+}
+
+const { room } = Astro.props;
+
+// Split long description into paragraphs (separated by \n\n in data)
+const descriptionParagraphs = room.longDescription.split('\n').filter(Boolean);
+
+// Cross-sell: the other rooms
+const otherRooms = rooms.filter((r) => r.slug !== room.slug);
+
+// Breadcrumb schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Rooms', item: `${site.url}/rooms` },
+    { '@type': 'ListItem', position: 3, name: room.name, item: `${site.url}${room.href}` },
+  ],
+};
+
+// LodgingBusiness / Room schema for SEO — includes price offer + occupancy
+const roomSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LodgingBusiness',
+  name: `${site.name} — ${room.name}`,
+  description: room.longDescription,
+  url: `${site.url}${room.href}`,
+  image: `${site.url}${room.image}`,
+  starRating: { '@type': 'Rating', ratingValue: '3' },
+  priceRange: '$$$',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.4',
+    reviewCount: '100',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Nusa Ceningan',
+    addressRegion: 'Bali',
+    addressCountry: 'ID',
+  },
+  amenityFeature: room.amenityGroups
+    .flatMap((g) => g.items)
+    .map((a) => ({
+      '@type': 'LocationFeatureSpecification',
+      name: a,
+    })),
+  // Price + occupancy offer
+  makesOffer: {
+    '@type': 'Offer',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: room.priceFromIDR,
+      priceCurrency: 'IDR',
+      referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'DAY' },
+    },
+  },
+  occupancy: {
+    '@type': 'QuantitativeValue',
+    maxValue: room.specs.sleeps,
+  },
+};
+---
+
+<Base
+  title={room.metaTitle}
+  description={room.metaDescription}
+  image={room.image}
+  schema={[roomSchema, breadcrumbSchema]}
+>
+  {/* ─── BREADCRUMB ─── */}
+  <div class="border-b border-line bg-mist">
+    <div class="container-content py-4">
+      <nav class="text-sm text-slate" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-lagoon-600">Home</a>
+        <span class="mx-2">›</span>
+        <a href="/rooms" class="hover:text-lagoon-600">Rooms</a>
+        <span class="mx-2">›</span>
+        <span class="text-ink">{room.name}</span>
+      </nav>
+    </div>
+  </div>
+
+  {/* ─── GALLERY ─── */}
+  <section class="bg-paper pt-10">
+    <div class="container-content">
+      <div class="grid gap-3 lg:grid-cols-[2fr_1fr]">
+        <div class="aspect-[4/3] overflow-hidden rounded-lg bg-seafoam-200 lg:aspect-[16/10]">
+          <img
+            src={room.gallery[0]}
+            alt={`${room.name} at ${site.name}`}
+            class="h-full w-full object-cover"
+          />
+        </div>
+        <div class="grid grid-cols-3 gap-3 lg:grid-cols-1">
+          {room.gallery.slice(1).map((img) => (
+            <div class="aspect-square overflow-hidden rounded-lg bg-seafoam-200 lg:aspect-[4/3]">
+              <img
+                src={img}
+                alt={`${room.name} detail`}
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── HEADER + STICKY BOOKING CARD ─── */}
+  <section class="bg-paper py-12">
+    <div class="container-content">
+      <div class="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
+        {/* Left: content */}
+        <div>
+          <p class="overline">{room.overline}</p>
+          <h1 class="mt-3 text-[clamp(2rem,4vw,3rem)]">{room.name}</h1>
+
+          {/* Quick specs */}
+          <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate">
+            <span>📐 {room.specs.size}</span>
+            <span>🛏️ {room.specs.beds}</span>
+            <span>👥 Sleeps {room.specs.sleeps}</span>
+            <span>🌊 {room.specs.view}</span>
+          </div>
+
+          <p class="mt-8 max-w-prose text-lg leading-relaxed text-ink/90">
+            {descriptionParagraphs.map((para) => (
+              <span class="mt-4 block">{para}</span>
+            ))}
+          </p>
+
+          {/* Perfect For */}
+          <h2 class="mt-12 text-2xl">Perfect For</h2>
+          <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+            {room.perfectFor.map((p) => (
+              <li class="flex items-start gap-2 text-sm text-ink/80">
+                <span class="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6l3 3 5-6" /></svg>
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+
+          {/* Amenities — categorized */}
+          <h2 class="mt-12 text-2xl">Room Amenities</h2>
+          <div class="mt-6 grid gap-8 sm:grid-cols-2">
+            {room.amenityGroups.map((group) => (
+              <div>
+                <h3 class="overline">{group.category}</h3>
+                <ul class="mt-3 space-y-2">
+                  {group.items.map((item) => (
+                    <li class="flex items-start gap-2 text-sm text-ink/80">
+                      <span class="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6l3 3 5-6" /></svg>
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Location benefit (SEO + helpful) */}
+          <div class="mt-12 rounded-lg border border-line bg-seafoam-100 p-6">
+            <h3 class="font-serif text-lg text-ink">Location Benefits</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate">{room.locationBenefit}</p>
+          </div>
+        </div>
+
+        {/* Right: sticky booking card */}
+        <aside class="lg:sticky lg:top-24 lg:self-start">
+          <div class="rounded-lg border border-line bg-mist p-6 shadow-sm">
+            <p class="text-sm text-slate">From</p>
+            <p class="font-serif text-3xl text-brass-600">{room.priceFromLabel}</p>
+            <p class="text-sm text-slate">per night · taxes included</p>
+
+            {/* Date / guest selectors (display-only until widget embedded) */}
+            <div class="mt-6 space-y-3">
+              <label class="block">
+                <span class="text-xs uppercase tracking-wide text-slate">Check-in</span>
+                <input type="date" class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm" />
+              </label>
+              <label class="block">
+                <span class="text-xs uppercase tracking-wide text-slate">Check-out</span>
+                <input type="date" class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm" />
+              </label>
+              <label class="block">
+                <span class="text-xs uppercase tracking-wide text-slate">Guests</span>
+                <select class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm">
+                  <option>1 Guest</option>
+                  <option selected>2 Guests</option>
+                  {room.specs.sleeps > 2 && <option>3 Guests</option>}
+                  {room.specs.sleeps > 3 && <option>4 Guests</option>}
+                </select>
+              </label>
+            </div>
+
+            <a
+              href={booking.bookingUrl}
+              class="btn-primary mt-6 w-full text-base"
+              target={booking.bookingUrl.startsWith('http') ? '_blank' : undefined}
+              rel={booking.bookingUrl.startsWith('http') ? 'noopener' : undefined}
+            >
+              Book Direct & Save ▸
+            </a>
+
+            <ul class="mt-5 space-y-2 text-xs text-slate">
+              {booking.perks.map((perk) => (
+                <li class="flex items-center gap-2">
+                  <span class="text-lagoon-600">✓</span> {perk}
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-6 border-t border-line pt-4 text-center">
+              <p class="text-xs text-slate">Questions?</p>
+              <a href={contact.whatsappLink} class="mt-1 inline-flex items-center gap-1.5 text-sm text-lagoon-600 hover:underline" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-2.8.8.8-2.7-.2-.3A8 8 0 0 1 12 4z"/></svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── FINAL CTA ─── */}
+  <section class="bg-lagoon-700 py-16 text-center text-white md:py-20">
+    <div class="container-content">
+      <h2 class="text-[clamp(1.5rem,3vw,2.25rem)] text-white">{room.ctaText}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-white/85">
+        Book this {room.name.toLowerCase()} directly and enjoy our best rates with personal service from our team.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href={booking.bookingUrl} class="btn-primary text-base" target={booking.bookingUrl.startsWith('http') ? '_blank' : undefined} rel={booking.bookingUrl.startsWith('http') ? 'noopener' : undefined}>
+          Book Your Stay Now ▸
+        </a>
+        <a href={contact.whatsappLink} class="btn-secondary border-white/70 text-white hover:bg-white/10" target="_blank" rel="noopener">
+          Ask on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── OTHER ROOMS (cross-sell) ─── */}
+  <section class="section bg-mist">
+    <div class="container-content">
+      <div class="max-w-2xl">
+        <p class="overline">Explore More</p>
+        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">Other Accommodations</h2>
+      </div>
+      <div class="mt-12 grid gap-8 sm:grid-cols-2">
+        {otherRooms.map((r) => (
+          <a href={r.href} class="card group">
+            <div class="aspect-[4/3] overflow-hidden bg-seafoam-200">
+              <img
+                src={r.image}
+                alt={r.name}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-6">
+              <p class="overline">{r.overline}</p>
+              <h3 class="mt-2 text-xl">{r.name}</h3>
+              <p class="mt-2 text-sm text-slate line-clamp-2">{r.shortDescription}</p>
+              <p class="mt-4 text-sm text-slate">
+                From <span class="font-medium text-brass-600">{r.priceFromLabel}</span> / night
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,287 @@
+---
+/**
+ * Getting Here page — /getting-here
+ * Practical, high-intent SEO content: "how to get to Nusa Lembongan/Ceningan".
+ * Copy provided verbatim by client (2026-06-20).
+ */
+import Base from '@layouts/Base.astro';
+import { site, contact, booking } from '@data/site';
+
+// Step-by-step from Bali
+const baliSteps = [
+  {
+    step: '01',
+    title: 'Fast Boat from Sanur to Nusa Lembongan',
+    meta: 'Departure: Sanur Beach · 30–45 min',
+    body: 'The most common and convenient way to reach the Nusa Islands is by fast boat from Sanur Beach. Reliable operators include Marlin, Angel Billabong, and Scoot Fast Cruises.',
+    tip: 'Book your boat ticket in advance, especially during peak season (July–August and December–January).',
+  },
+  {
+    step: '02',
+    title: 'Transfer from Nusa Lembongan to Segara',
+    meta: '5–10 minutes across the Yellow Bridge',
+    body: 'Once you arrive at Nusa Lembongan, cross the Yellow Bridge to reach us on Nusa Ceningan. We’re located very close to Song Tepo Beach, just minutes from the bridge.',
+    tip: 'Choose scooter rental, private transfer, or taxi/Gojek depending on your luggage and preference.',
+  },
+];
+
+// Transfer options table data
+const transferOptions = [
+  { option: 'Scooter rental', time: '5–10 mins', recommendation: 'Best for independent travelers', price: 'Low' },
+  { option: 'Private transfer', time: '5–10 mins', recommendation: 'Most comfortable', price: 'Medium' },
+  { option: 'Taxi / Gojek', time: '5–10 mins', recommendation: 'Easy and affordable', price: 'Low–Medium' },
+];
+
+// Arrival tips
+const arrivalTips = [
+  { title: 'Best time to travel', body: 'Morning boats are usually calmer. Avoid late afternoon if possible during the windy season (December–March).' },
+  { title: 'Luggage', body: 'Most fast boats allow one suitcase and hand luggage per person.' },
+  { title: 'Scooter rental', body: 'Available near the boat arrival area on Nusa Lembongan. Make sure to wear a helmet.' },
+  { title: 'Weather', body: 'Sea conditions can change quickly. We recommend checking boat schedules the day before travel.' },
+  { title: 'SIM Card', body: 'Grab a local SIM card at the airport or in Sanur for easy navigation.' },
+];
+
+// Private transfer services
+const transferServices = [
+  'Private car + fast boat transfers from the airport or your hotel in Bali',
+  'Direct pickup from the boat arrival point in Nusa Lembongan',
+  'Scooter rental upon arrival (we can recommend trusted providers)',
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Getting Here', item: `${site.url}/getting-here` },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I get to Segara Seaside Resort from Bali?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Take a fast boat from Sanur Beach in Bali to Nusa Lembongan (30–45 minutes), then cross the Yellow Bridge to Nusa Ceningan (5–10 minutes). Total travel time is usually 1.5 to 2.5 hours. Operators include Marlin, Angel Billabong, and Scoot Fast Cruises.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How far is Segara from Nusa Lembongan?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Segara Seaside Resort is on Nusa Ceningan, just 5–10 minutes across the Yellow Bridge from Nusa Lembongan. You can cross by scooter, private transfer, or taxi.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can Segara arrange my transfer from Bali?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. We can arrange private car and fast boat transfers from the airport or your hotel in Bali, plus direct pickup from the boat arrival point on Nusa Lembongan. Let us know your arrival details when you book.',
+      },
+    },
+  ],
+};
+---
+
+<Base
+  title="How to Get Here | Segara Resort, Nusa Lembongan & Ceningan"
+  description="Step-by-step guide to reach Segara on Nusa Ceningan from Bali. Fast boat from Sanur, transfers, and directions via the Yellow Bridge to Nusa Lembongan."
+  image="/images/general/resort-aerial.jpg"
+  schema={[breadcrumbSchema, faqSchema]}
+>
+  {/* ─── HERO ─── */}
+  <section class="bg-lagoon-700 py-20 text-center text-white md:py-28">
+    <div class="container-content">
+      <p class="overline text-white/70">Getting Here</p>
+      <h1 class="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] text-white">How to Get to Segara Seaside Resort</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-white/85">
+        Getting to Segara Seaside Resort on Nusa Ceningan is straightforward. Whether you’re coming
+        from Bali or already on Nusa Lembongan, this simple guide will help you reach us easily.
+      </p>
+    </div>
+  </section>
+
+  {/* ─── QUICK OVERVIEW ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="mx-auto max-w-3xl rounded-lg border border-line bg-seafoam-100 p-8">
+        <h2 class="text-2xl">Quick Overview</h2>
+        <p class="mt-3 text-slate">Most guests reach us in two main steps:</p>
+        <ol class="mt-4 space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-lagoon-600 text-sm text-white">1</span>
+            <span class="text-ink/80">Take a <strong>fast boat from Sanur (Bali)</strong> to Nusa Lembongan.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-lagoon-600 text-sm text-white">2</span>
+            <span class="text-ink/80">Cross the <strong>Yellow Bridge</strong> from Nusa Lembongan to Nusa Ceningan (5–10 minutes).</span>
+          </li>
+        </ol>
+        <p class="mt-5 border-t border-line pt-4 text-sm text-slate">
+          <strong>Total travel time from Bali:</strong> usually 1.5 to 2.5 hours, depending on your
+          transfer choices.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── STEP BY STEP ─── */}
+  <section class="section bg-mist">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Step-by-Step from Bali</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Your Journey to Segara</h2>
+      </div>
+
+      <div class="mx-auto mt-14 max-w-4xl space-y-8">
+        {baliSteps.map((s) => (
+          <div class="card p-8">
+            <div class="flex items-start gap-5">
+              <div class="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-lagoon-600 font-serif text-lg text-white">
+                {s.step}
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl">{s.title}</h3>
+                <p class="mt-1 text-xs uppercase tracking-wide text-lagoon-600">{s.meta}</p>
+                <p class="mt-3 leading-relaxed text-ink/80">{s.body}</p>
+                <p class="mt-4 rounded bg-seafoam-100 p-3 text-sm text-slate">
+                  <span class="font-medium text-lagoon-700">💡 Tip:</span> {s.tip}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Transfer options table */}
+      <div class="mx-auto mt-10 max-w-4xl">
+        <h3 class="text-lg">Transfer Options from Nusa Lembongan to Segara</h3>
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full border-collapse text-left text-sm">
+            <thead>
+              <tr class="border-b border-line text-xs uppercase tracking-wide text-slate">
+                <th class="py-3 pr-4 font-medium">Option</th>
+                <th class="py-3 pr-4 font-medium">Time</th>
+                <th class="py-3 pr-4 font-medium">Recommendation</th>
+                <th class="py-3 font-medium">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transferOptions.map((o) => (
+                <tr class="border-b border-line">
+                  <td class="py-3 pr-4 font-medium text-ink">{o.option}</td>
+                  <td class="py-3 pr-4 text-slate">{o.time}</td>
+                  <td class="py-3 pr-4 text-slate">{o.recommendation}</td>
+                  <td class="py-3 text-slate">{o.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── YELLOW BRIDGE ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <p class="overline">Your Gateway to Segara</p>
+          <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">The Yellow Bridge</h2>
+          <div class="mt-6 max-w-prose space-y-4 leading-relaxed text-ink/90">
+            <p>
+              The iconic Yellow Bridge connects Nusa Lembongan and Nusa Ceningan. Crossing it is
+              quick and scenic — and once you cross, you’re only a few minutes away from Segara
+              Seaside Resort.
+            </p>
+            <p>
+              Many guests enjoy stopping on or near the bridge for photos before heading to the resort.
+            </p>
+          </div>
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-lg bg-seafoam-200">
+          <iframe
+            title="Yellow Bridge between Nusa Lembongan and Nusa Ceningan"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7774.909644143069!2d115.44981820000001!3d-8.6968955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd26da731527811%3A0x639e2fe202921059!2sSegara%20Seaside%20Resort!5e1!3m2!1sde!2s!4v1781894673297!5m2!1sde!2s"
+            class="h-full w-full"
+            style="border:0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── PRIVATE TRANSFER ─── */}
+  <section class="section bg-seafoam-100">
+    <div class="container-content">
+      <div class="mx-auto max-w-3xl">
+        <p class="overline">Hassle-Free Arrival</p>
+        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">Private Transfer &amp; Airport Pickup</h2>
+        <p class="mt-5 max-w-prose text-slate">
+          If you prefer a hassle-free arrival, we can help arrange everything. Just let us know your
+          arrival details when you book, and we’ll be happy to assist.
+        </p>
+        <ul class="mt-8 space-y-3">
+          {transferServices.map((service) => (
+            <li class="flex items-start gap-3 rounded-lg border border-line bg-paper p-4">
+              <span class="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-lagoon-600 text-xs text-white">✓</span>
+              <span class="text-sm text-ink/80">{service}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── ARRIVAL TIPS ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Arrival Tips</p>
+        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">Tips for a Smooth Journey</h2>
+      </div>
+      <div class="mx-auto mt-12 max-w-4xl grid gap-6 sm:grid-cols-2">
+        {arrivalTips.map((tip) => (
+          <div class="card p-6">
+            <h3 class="font-serif text-base text-lagoon-700">{tip.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate">{tip.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── HELP + CTA ─── */}
+  <section class="relative overflow-hidden">
+    <div
+      class="bg-cover bg-center py-20 md:py-28"
+      style="background-image: linear-gradient(rgba(15,61,71,0.65), rgba(15,61,71,0.65)), url('/images/cta-banner.svg');"
+    >
+      <div class="container-content text-center text-white">
+        <h2 class="text-[clamp(1.75rem,3.5vw,2.75rem)] text-white">Need Help Getting Here?</h2>
+        <p class="mx-auto mt-5 max-w-xl text-white/85">
+          We’re happy to help you plan your transfer. Message us on WhatsApp with your arrival time,
+          and we’ll guide you step by step.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href={contact.whatsappLink} class="btn-primary text-base" target="_blank" rel="noopener">
+            Message us on WhatsApp ▸
+          </a>
+          <a href={booking.bookingUrl} class="btn-secondary border-white/70 text-white hover:bg-white/10">
+            Book Your Stay Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
