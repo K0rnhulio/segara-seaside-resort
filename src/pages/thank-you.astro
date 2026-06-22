@@ -4,7 +4,7 @@
  * Shown after the contact form is submitted. Warm confirmation + next steps.
  */
 import Base from '@layouts/Base.astro';
-import { contact, booking } from '@data/site';
+import { contact, booking, generalBookingUrl } from '@data/site';
 ---
 
 <Base
@@ -31,7 +31,7 @@ import { contact, booking } from '@data/site';
           <a href={contact.whatsappLink} class="btn-primary" target="_blank" rel="noopener">
             Message us on WhatsApp ▸
           </a>
-          <a href={booking.bookingUrl} class="btn-secondary">
+          <a href={generalBookingUrl} class="btn-secondary" target="_blank" rel="noopener">
             Book Direct &amp; Save
           </a>
         </div>

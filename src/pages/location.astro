@@ -10,7 +10,7 @@
  * Why This Location → Practical Tips → CTA
  */
 import Base from '@layouts/Base.astro';
-import { site, contact, booking } from '@data/site';
+import { site, contact, booking, generalBookingUrl } from '@data/site';
 
 // Getting here — step by step (practical, high-intent SEO)
 const gettingHereSteps = [
@@ -360,7 +360,7 @@ const faqSchema = {
           Book directly for the best rates and personal service.
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a href={booking.bookingUrl} class="btn-primary text-base">Book Your Stay at Segara ▸</a>
+          <a href={generalBookingUrl} class="btn-primary text-base" target="_blank" rel="noopener">Book Your Stay at Segara ▸</a>
           <a href={contact.whatsappLink} class="btn-secondary border-white/70 text-white hover:bg-white/10" target="_blank" rel="noopener">Ask About Transfers</a>
         </div>
       </div>

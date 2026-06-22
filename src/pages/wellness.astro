@@ -10,7 +10,7 @@
  * services (yoga/massage) — stays truthful to what actually exists.
  */
 import Base from '@layouts/Base.astro';
-import { site, contact, booking } from '@data/site';
+import { site, contact, booking, generalBookingUrl } from '@data/site';
 
 // The signature ritual — calmer framing of heat/cold/rest
 const ritualSteps = [
@@ -301,7 +301,7 @@ const faqSchema = {
 
       <div class="mx-auto mt-12 max-w-2xl text-center">
         <div class="flex flex-wrap justify-center gap-4">
-          <a href={booking.bookingUrl} class="btn-primary">Book a Room + Sauna ▸</a>
+          <a href={generalBookingUrl} class="btn-primary" target="_blank" rel="noopener">Book a Room + Sauna ▸</a>
           <a href={contact.whatsappLink} class="btn-secondary" target="_blank" rel="noopener">Ask About Sessions</a>
         </div>
       </div>

@@ -36,22 +36,34 @@ export const nav = [
 
 export const cta = {
   label: 'Book Direct & Save',
-  href: '/book',
+  href: '/rooms',
 };
 
 /**
- * Booking integration config.
- * Approach: Option C hybrid — link to SiteMinder booking URL now,
- * swap in an embedded BookNow widget later (zero rework).
+ * Booking integration — SiteMinder DirectOnline (Avvio) booking engine.
  *
- * TODO (client): replace bookingUrl with the real SiteMinder BookNow URL,
- * e.g. https://book-directonline.com/properties/SegaraSeasideResorDIRECT?locale=en
- * Once provided, room page "Book" buttons will deep-link with room + dates.
+ * Base URL + parameter names confirmed from the resort's live BookNow link.
+ * All "Book" buttons send guests to the property's generic booking page with
+ * their chosen dates + guests; the guest picks the room on the engine.
+ *
+ * Per-room deep-linking (items[0][rateId]) is supported by buildBookingUrl()
+ * and the Room.rateId field below, but currently unused — the resort manager
+ * couldn't locate the per-room IDs. Drop a rateId onto a room to enable it.
+ *
+ * Query params the engine accepts:
+ *   locale, currency, checkInDate, checkOutDate,
+ *   items[0][adults], items[0][children], items[0][infants], items[0][rateId],
+ *   trackPage, selected
  */
 export const booking = {
   provider: 'SiteMinder',
-  bookingUrl: '/book', // placeholder — replace with real SiteMinder URL
-  // baseBookingUrl: 'https://book-directonline.com/properties/SegaraSeasideResorDIRECT',
+  // Engine endpoint — property stays constant, params appended per request.
+  baseUrl: 'https://book-directonline.com/properties/SegaraSeasideResorDIRECT',
+  // Defaults for general CTAs (header/footer/hero) — no room pre-selected.
+  defaultAdults: 2,
+  defaultChildren: 0,
+  currency: 'IDR',
+  locale: 'en',
   perks: [
     'Best rate guaranteed',
     'No booking fees',
@@ -59,6 +71,55 @@ export const booking = {
     'Personal service',
   ],
 } as const;
+
+/**
+ * Build a SiteMinder DirectOnline booking URL.
+ *
+ * Pass options to override defaults. When `rateId` is omitted (or empty),
+ * the room selector is left generic — the guest picks a room on the engine.
+ *
+ *   buildBookingUrl({ rateId: '677890', checkIn: '2026-07-01', checkOut: '2026-07-03', adults: 2 })
+ */
+export function buildBookingUrl(opts: {
+  rateId?: string;
+  checkIn?: string; // YYYY-MM-DD
+  checkOut?: string; // YYYY-MM-DD
+  adults?: number;
+  children?: number;
+} = {}): string {
+  const {
+    rateId,
+    checkIn,
+    checkOut,
+    adults = booking.defaultAdults,
+    children = booking.defaultChildren,
+  } = opts;
+
+  const params = new URLSearchParams();
+  params.set('locale', booking.locale);
+  params.set('currency', booking.currency);
+  // adults / children / infants travel under the items[0] namespace.
+  params.set('items[0][adults]', String(adults));
+  params.set('items[0][children]', String(children));
+  params.set('items[0][infants]', '0');
+  if (rateId) params.set('items[0][rateId]', rateId);
+  if (checkIn) params.set('checkInDate', checkIn);
+  if (checkOut) params.set('checkOutDate', checkOut);
+  params.set('trackPage', 'no');
+  params.set('selected', '0');
+
+  return `${booking.baseUrl}?${params.toString()}`;
+}
+
+/**
+ * General "Book" CTA used by header, footer, hero, and section CTAs across
+ * the site. No dates → the engine defaults to its own calendar; no rateId
+ * → the guest selects a room on the booking page.
+ *
+ * NOTE: built once at module load. Date pickers on room pages build their
+ * own URL client-side via the same parameter contract.
+ */
+export const generalBookingUrl = buildBookingUrl();
 
 export type AmenityGroup = { category: string; items: string[] };
 
@@ -81,6 +142,12 @@ export type Room = {
   locationBenefit: string; // SEO + helpful location note
   ctaText: string; // final CTA heading
   href: string;
+  /**
+   * SiteMinder DirectOnline rate plan ID — enables per-room deep-linking
+   * (items[0][rateId]). Currently unused: all rooms send guests to the
+   * generic booking page. Add a rateId here to deep-link a specific room.
+   */
+  rateId?: string;
 };
 
 export const rooms: Room[] = [

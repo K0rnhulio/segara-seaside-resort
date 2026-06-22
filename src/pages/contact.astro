@@ -12,7 +12,7 @@
  *       or convert submit to a WhatsApp deep-link for zero-backend MVP.
  */
 import Base from '@layouts/Base.astro';
-import { site, contact, booking } from '@data/site';
+import { site, contact, booking, generalBookingUrl } from '@data/site';
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -251,7 +251,7 @@ const localBusinessSchema = {
         ))}
       </ul>
       <div class="mt-8 text-center">
-        <a href={booking.bookingUrl} class="btn-primary">Book Direct &amp; Save ▸</a>
+        <a href={generalBookingUrl} class="btn-primary" target="_blank" rel="noopener">Book Direct &amp; Save ▸</a>
       </div>
     </div>
   </section>

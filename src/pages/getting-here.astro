@@ -5,7 +5,7 @@
  * Copy provided verbatim by client (2026-06-20).
  */
 import Base from '@layouts/Base.astro';
-import { site, contact, booking } from '@data/site';
+import { site, contact, booking, generalBookingUrl } from '@data/site';
 
 // Step-by-step from Bali
 const baliSteps = [
@@ -277,7 +277,7 @@ const faqSchema = {
           <a href={contact.whatsappLink} class="btn-primary text-base" target="_blank" rel="noopener">
             Message us on WhatsApp ▸
           </a>
-          <a href={booking.bookingUrl} class="btn-secondary border-white/70 text-white hover:bg-white/10">
+          <a href={generalBookingUrl} class="btn-secondary border-white/70 text-white hover:bg-white/10" target="_blank" rel="noopener">
             Book Your Stay Now
           </a>
         </div>

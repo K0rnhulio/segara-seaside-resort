@@ -4,11 +4,13 @@
  * Template applies to all 3 rooms (villa + 2 bungalows).
  * Per docs/05-wireframes.md §3 (Room Detail Page).
  *
- * Booking: Option C hybrid — "Book" links to SiteMinder URL (placeholder now,
- * embedded widget later). See booking config in src/data/site.ts.
+ * Booking: SiteMinder DirectOnline engine. The sticky booking-card date +
+ * guest pickers assemble a live booking URL client-side (data-booking-card
+ * script at the bottom), deep-linked to this room when room.rateId is set.
+ * See booking config + buildBookingUrl() in src/data/site.ts.
  */
 import Base from '@layouts/Base.astro';
-import { rooms, site, contact, booking } from '@data/site';
+import { rooms, site, contact, booking, buildBookingUrl } from '@data/site';
 
 // Static prerender of all rooms → /rooms/sunset-villa, /rooms/ocean-bungalow, /rooms/bungalow
 export function getStaticPaths() {
@@ -16,6 +18,10 @@ export function getStaticPaths() {
 }
 
 const { room } = Astro.props;
+
+// Static fallback URL rendered into the HTML for no-JS clients.
+// When JS runs, the script below overrides this with the guest's dates/guests.
+const fallbackBookingUrl = buildBookingUrl({ rateId: room.rateId });
 
 // Split long description into paragraphs (separated by \n\n in data)
 const descriptionParagraphs = room.longDescription.split('\n').filter(Boolean);
@@ -189,37 +195,54 @@ const roomSchema = {
 
         {/* Right: sticky booking card */}
         <aside class="lg:sticky lg:top-24 lg:self-start">
-          <div class="rounded-lg border border-line bg-mist p-6 shadow-sm">
+          <div class="rounded-lg border border-line bg-mist p-6 shadow-sm" data-booking-card>
             <p class="text-sm text-slate">From</p>
             <p class="font-serif text-3xl text-brass-600">{room.priceFromLabel}</p>
             <p class="text-sm text-slate">per night · taxes included</p>
 
-            {/* Date / guest selectors (display-only until widget embedded) */}
+            {/* Date / guest selectors — drive the booking URL client-side.
+                 The script at the bottom reads these and rebuilds the
+                 "Book" button href whenever they change. */}
             <div class="mt-6 space-y-3">
               <label class="block">
                 <span class="text-xs uppercase tracking-wide text-slate">Check-in</span>
-                <input type="date" class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm" />
+                <input
+                  type="date"
+                  name="checkIn"
+                  data-booking-checkin
+                  class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm"
+                />
               </label>
               <label class="block">
                 <span class="text-xs uppercase tracking-wide text-slate">Check-out</span>
-                <input type="date" class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm" />
+                <input
+                  type="date"
+                  name="checkOut"
+                  data-booking-checkout
+                  class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm"
+                />
               </label>
               <label class="block">
                 <span class="text-xs uppercase tracking-wide text-slate">Guests</span>
-                <select class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm">
-                  <option>1 Guest</option>
-                  <option selected>2 Guests</option>
-                  {room.specs.sleeps > 2 && <option>3 Guests</option>}
-                  {room.specs.sleeps > 3 && <option>4 Guests</option>}
+                <select
+                  name="adults"
+                  data-booking-adults
+                  class="mt-1 w-full rounded border border-line bg-paper px-3 py-2 text-sm"
+                >
+                  <option value="1">1 Guest</option>
+                  <option value="2" selected>2 Guests</option>
+                  {room.specs.sleeps > 2 && <option value="3">3 Guests</option>}
+                  {room.specs.sleeps > 3 && <option value="4">4 Guests</option>}
                 </select>
               </label>
             </div>
 
             <a
-              href={booking.bookingUrl}
+              href={fallbackBookingUrl}
               class="btn-primary mt-6 w-full text-base"
-              target={booking.bookingUrl.startsWith('http') ? '_blank' : undefined}
-              rel={booking.bookingUrl.startsWith('http') ? 'noopener' : undefined}
+              data-booking-link
+              target="_blank"
+              rel="noopener"
             >
               Book Direct & Save ▸
             </a>
@@ -253,7 +276,7 @@ const roomSchema = {
         Book this {room.name.toLowerCase()} directly and enjoy our best rates with personal service from our team.
       </p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-        <a href={booking.bookingUrl} class="btn-primary text-base" target={booking.bookingUrl.startsWith('http') ? '_blank' : undefined} rel={booking.bookingUrl.startsWith('http') ? 'noopener' : undefined}>
+        <a href={fallbackBookingUrl} class="btn-primary text-base" data-booking-link-cta target="_blank" rel="noopener">
           Book Your Stay Now ▸
         </a>
         <a href={contact.whatsappLink} class="btn-secondary border-white/70 text-white hover:bg-white/10" target="_blank" rel="noopener">
@@ -295,3 +318,63 @@ const roomSchema = {
     </div>
   </section>
 </Base>
+
+<script is:inline define:vars={{ bookingConfig: { baseUrl: booking.baseUrl, locale: booking.locale, currency: booking.currency }, rateId: room.rateId }}>
+  // Assemble the SiteMinder DirectOnline booking URL from the guest's
+  // selections and update every [data-booking-link] on the page.
+  // Mirrors buildBookingUrl() in src/data/site.ts.
+  (function () {
+    const card = document.querySelector('[data-booking-card]');
+    if (!card) return;
+
+    const checkin = card.querySelector('[data-booking-checkin]');
+    const checkout = card.querySelector('[data-booking-checkout]');
+    const adultsSel = card.querySelector('[data-booking-adults]');
+    const links = document.querySelectorAll('[data-booking-link], [data-booking-link-cta]');
+    if (!checkin || !checkout || !adultsSel || !links.length) return;
+
+    // today / tomorrow / day-after as YYYY-MM-DD, local time.
+    const iso = (d) => d.toISOString().slice(0, 10);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
+    const dayAfter = new Date(today); dayAfter.setDate(dayAfter.getDate() + 2);
+
+    checkin.min = iso(today);
+    checkin.value = iso(tomorrow);
+    checkout.min = iso(dayAfter);
+    checkout.value = iso(dayAfter);
+
+    const buildUrl = () => {
+      const params = new URLSearchParams();
+      params.set('locale', bookingConfig.locale);
+      params.set('currency', bookingConfig.currency);
+      params.set('items[0][adults]', adultsSel.value || '2');
+      params.set('items[0][children]', '0');
+      params.set('items[0][infants]', '0');
+      if (rateId) params.set('items[0][rateId]', rateId);
+      if (checkin.value) params.set('checkInDate', checkin.value);
+      if (checkout.value) params.set('checkOutDate', checkout.value);
+      params.set('trackPage', 'no');
+      params.set('selected', '0');
+      return `${bookingConfig.baseUrl}?${params.toString()}`;
+    };
+
+    const sync = () => {
+      // Keep checkout at least one night ahead of check-in.
+      if (checkin.value) {
+        const ci = new Date(checkin.value + 'T00:00:00');
+        const minOut = new Date(ci); minOut.setDate(minOut.getDate() + 1);
+        checkout.min = iso(minOut);
+        if (checkout.value && new Date(checkout.value + 'T00:00:00') <= ci) {
+          checkout.value = iso(minOut);
+        }
+      }
+      const url = buildUrl();
+      links.forEach((a) => { a.setAttribute('href', url); });
+    };
+
+    [checkin, checkout, adultsSel].forEach((el) => el.addEventListener('change', sync));
+    sync();
+  })();
+</script>
