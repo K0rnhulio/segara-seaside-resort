@@ -1,16 +1,10 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
+// Tailwind v3 is wired through PostCSS (postcss.config.mjs) rather than the
+// @astrojs/tailwind integration, which was removed in Astro 7.
 export default defineConfig({
   site: 'https://segaraseasideresort.com',
-  integrations: [
-    tailwind({
-      // Apply base styles via our own src/styles/global.css instead of the
-      // injected ones, so we control font imports + base layer ordering.
-      applyBaseStyles: false,
-    }),
-    sitemap(),
-  ],
+  integrations: [sitemap()],
 });

@@ -1,7 +1,7 @@
 # Segara Seaside Resort — Website
 
 Oceanfront boutique resort website for Segara Seaside Resort, Nusa Ceningan, Bali.
-Built with **Astro + Tailwind CSS** using the **Coastal Calm** design system.
+Built with **Astro 7 + Tailwind CSS v3** (wired via PostCSS) using the **Coastal Calm** design system.
 
 ---
 
