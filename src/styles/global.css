@@ -138,3 +138,34 @@ img[data-blur-up].loaded {
 .prose-legal a {
   @apply text-lagoon-600 underline underline-offset-2 hover:text-lagoon-700;
 }
+
+/* ───────────────────────────────────────────────────────────
+   Carousel utilities — CSS scroll-snap, no JS library
+   ─────────────────────────────────────────────────────────── */
+
+/* Hide scrollbar but keep scrollable (cross-browser) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Edge fade: videos fade out near the left/right edges to hint at more content */
+.carousel-edge-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent 100%
+  );
+}

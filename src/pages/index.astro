@@ -346,32 +346,59 @@ const faqSchema = {
           Get a feel for Segara through our latest videos — the ocean, the sunsets, the sauna, and
           everyday life on Nusa Ceningan.
         </p>
+        <p class="mt-3 text-sm text-slate/60 lg:hidden">
+          ← Swipe to explore →
+        </p>
       </div>
-      <div class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          tiktokVideos.map((video) => {
-            const id = tiktokVideoId(video.url);
-            return (
-              <figure class="overflow-hidden rounded-lg border border-line bg-mist shadow-sm">
-                <div class="aspect-[9/16] w-full bg-ink">
-                  <iframe
-                    src={`https://www.tiktok.com/player/v1/${id}?description=1&music_info=1&progress_bar=1&play_button=1&fullscreen_button=1`}
-                    class="h-full w-full"
-                    allow="fullscreen"
-                    title={`TikTok video ${id} from ${contact.tiktokHandle}`}
-                    loading="lazy"
-                  />
-                </div>
-                {video.caption && (
-                  <figcaption class="px-4 py-3 text-center text-sm text-slate">
-                    {video.caption}
-                  </figcaption>
-                )}
-              </figure>
-            );
-          })
-        }
+
+      {/* Carousel: CSS scroll-snap with progressive-enhancement arrows */}
+      <div class="relative mt-12">
+        {/* Arrow buttons — hidden on mobile (native swipe is more natural) */}
+        <button
+          type="button"
+          aria-label="Previous videos"
+          class="carousel-prev absolute left-0 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/90 p-3 text-lagoon-700 shadow-lg transition hover:bg-white lg:flex"
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button
+          type="button"
+          aria-label="Next videos"
+          class="carousel-next absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white/90 p-3 text-lagoon-700 shadow-lg transition hover:bg-white lg:flex"
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        {/* Scroll-snap track */}
+        <div
+          class="carousel-track scrollbar-hide carousel-edge-fade flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-1 pb-2"
+        >
+          {
+            tiktokVideos.map((video) => {
+              const id = tiktokVideoId(video.url);
+              return (
+                <figure class="w-[82vw] shrink-0 snap-center overflow-hidden rounded-lg border border-line bg-mist shadow-sm sm:w-[44vw] lg:w-[31.5%]">
+                  <div class="aspect-[9/16] w-full bg-ink">
+                    <iframe
+                      src={`https://www.tiktok.com/player/v1/${id}?description=1&music_info=1&progress_bar=1&play_button=1&fullscreen_button=1`}
+                      class="h-full w-full"
+                      allow="fullscreen"
+                      title={`TikTok video ${id} from ${contact.tiktokHandle}`}
+                      loading="lazy"
+                    />
+                  </div>
+                  {video.caption && (
+                    <figcaption class="px-4 py-3 text-center text-sm text-slate">
+                      {video.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            })
+          }
+        </div>
       </div>
+
       <div class="mt-10 text-center">
         <a href={contact.tiktok} class="btn-secondary" target="_blank" rel="noopener">
           Follow {contact.tiktokHandle} on TikTok ▸
@@ -379,6 +406,25 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  {/* Carousel arrow buttons — progressive enhancement */}
+  <script is:inline>
+    (function () {
+      var track = document.querySelector('.carousel-track');
+      if (!track) return;
+      var prev = document.querySelector('.carousel-prev');
+      var next = document.querySelector('.carousel-next');
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function scrollByCard(dir) {
+        var card = track.querySelector('figure');
+        if (!card) return;
+        var amount = card.offsetWidth + 20; /* card + gap */
+        track.scrollBy({ left: amount * dir, behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+      if (prev) prev.addEventListener('click', function () { scrollByCard(-1); });
+      if (next) next.addEventListener('click', function () { scrollByCard(1); });
+    })();
+  </script>
 
   {/* ───────────────────────── SECTION 8.5 — FAQ (SEO) ───────────────────────── */}
   <FAQ />
