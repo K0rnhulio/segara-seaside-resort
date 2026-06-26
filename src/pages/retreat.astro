@@ -1,0 +1,375 @@
+---
+/**
+ * Retreats page — /retreat
+ * Direction (client, 2026-06-26): a modern lead-generation page pitching
+ * Segara Seaside Resort as an oceanfront venue for hosts, mastermind leaders,
+ * yoga teachers, and group organizers to run their own retreats.
+ *
+ * Mirrors the "Coastal Calm" design system and the section rhythm of the
+ * wellness page. Content lives in @data/site.ts (retreats, retreatAdvantages,
+ * retreatFacilities, retreatDay, retreatReviews, retreatFaqs).
+ */
+import Base from '@layouts/Base.astro';
+import { site, contact, rooms, retreats, retreatAdvantages, retreatFacilities, retreatDay, retreatReviews, retreatFaqs } from '@data/site';
+
+// Structured data — Service + BreadcrumbList + FAQPage.
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Retreat hosting',
+  name: 'Host Your Retreat at Segara Seaside Resort',
+  description:
+    'Oceanfront retreat venue on Nusa Ceningan, near Nusa Lembongan, for wellness, sauna, mastermind, yoga, and group retreats. Infinity pool, ocean-view sauna & cold plunge, restaurant, and direct beach access.',
+  provider: {
+    '@type': 'LodgingBusiness',
+    name: site.name,
+    url: site.url,
+    telephone: '+6282266294250',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Nusa Ceningan',
+      addressRegion: 'Bali',
+      addressCountry: 'ID',
+    },
+  },
+  areaServed: { '@type': 'Place', name: 'Nusa Ceningan, Bali' },
+  url: `${site.url}/retreat`,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Retreats', item: `${site.url}/retreat` },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: retreatFaqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Base
+  title="Retreats | Host Your Retreat by the Ocean | Segara Seaside Resort"
+  description="Host your wellness, yoga, mastermind, or group retreat at Segara Seaside Resort on Nusa Ceningan. Oceanfront infinity pool, sauna & cold plunge, restaurant, and direct beach access. Enquire today."
+  image="/images/general/aerial-infinity-pool.jpg"
+  schema={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  {/* ─── HERO ─── */}
+  <section class="relative flex min-h-[100svh] items-center overflow-hidden bg-lagoon-700">
+    <img
+      src="/images/general/aerial-infinity-pool.jpg"
+      alt="Aerial view of Segara Seaside Resort infinity pool and oceanfront on Nusa Ceningan"
+      class="absolute inset-0 h-full w-full object-cover"
+      loading="eager"
+    />
+    {/* Legibility gradient (left + bottom) */}
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-lagoon-700/90 via-lagoon-700/45 to-transparent"></div>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-lagoon-700/75 via-transparent to-lagoon-700/25"></div>
+
+    <div class="container-bleed relative z-10 py-24">
+      <div class="max-w-2xl text-white">
+        <p class="overline text-white/80">Host Your Retreat</p>
+        <h1 class="mt-4 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-white">
+          Run Your Retreat by the Ocean
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-white/90">
+          An intimate oceanfront venue on Nusa Ceningan for wellness, yoga, masterminds, and group
+          getaways. Infinity pool, ocean-view sauna &amp; cold plunge, and direct beach access —
+          everything your retreat needs, in one quiet setting near Nusa Lembongan.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🌊 Oceanfront · Nusa Ceningan</span>
+          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🔥 Sauna &amp; Cold Plunge</span>
+          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">💧 Infinity Pool</span>
+          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🏝️ Whole-resort buyout available</span>
+        </div>
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a href={contact.whatsappLink} class="btn-primary text-base" target="_blank" rel="noopener">Enquire on WhatsApp ▸</a>
+          <a href="#venue" class="btn-secondary border-white/70 text-white hover:bg-white/10">
+            Explore the Venue ▸
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── WHY HOST AT SEGARA ─── */}
+  <section id="venue" class="section bg-paper">
+    <div class="container-content">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <p class="overline">A Venue Built for Retreats</p>
+          <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Why Host Your Retreat at Segara</h2>
+          <div class="mt-6 max-w-prose space-y-4 text-lg leading-relaxed text-ink/90">
+            <p>
+              Segara Seaside Resort is a small, oceanfront boutique resort on the quiet island of
+              Nusa Ceningan, just minutes across the Yellow Bridge from Nusa Lembongan. That
+              combination — intimate scale, dedicated oceanfront, and genuine wellness facilities —
+              makes it a natural place to host a retreat.
+            </p>
+            <p>
+              Your guests wake up to the sound of the ocean, move between sessions, swims, and the
+              sauna at their own pace, and gather for sunset over the Indian Ocean. No crowds, no
+              distractions — just the rhythm of the island and a setting that does the heavy lifting
+              for you.
+            </p>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href={contact.whatsappLink} class="btn-primary" target="_blank" rel="noopener">Plan Your Retreat ▸</a>
+            <a href="/wellness" class="btn-secondary">See the Wellness Facilities</a>
+          </div>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2">
+          {retreatAdvantages.map((a) => (
+            <div class="card p-7">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+                {a.icon === 'ocean' && (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 16c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 20c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M12 4c-3 3-5 5-5 8a5 5 0 0 0 10 0c0-3-2-5-5-8Z" /></svg>
+                )}
+                {a.icon === 'sauna' && (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14a4 4 0 1 1 8 0M12 6v2M5 9l1.5 1.5M19 9l-1.5 1.5M3 18h18" /><circle cx="12" cy="14" r="1.5" /></svg>
+                )}
+                {a.icon === 'pool' && (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 16c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M2 20c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2M6 12V4M18 12V4M6 8h12" /></svg>
+                )}
+                {a.icon === 'intimate' && (
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V10l9-7 9 7v11M9 21v-6h6v6" /></svg>
+                )}
+              </div>
+              <h3 class="mt-5 text-lg">{a.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate">{a.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── RETREATS WE HOST ─── */}
+  <section id="types" class="section bg-mist">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Retreats We Host</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">A Setting for Every Kind of Retreat</h2>
+        <p class="mt-4 text-slate">
+          Whether you are guiding a wellness reset, leading a mastermind, or bringing a team
+          together, Segara adapts to the retreat you want to run.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {retreats.map((r) => (
+          <div class="card p-8 text-center">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+              {r.icon === 'wellness' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-6-4.5-6-10a6 6 0 0 1 12 0c0 5.5-6 10-6 10Z" /><path d="M8 11h8M12 7v8" /></svg>
+              )}
+              {r.icon === 'mastermind' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20c0-3 3-5 7-5s7 2 7 5M16 11a3 3 0 1 0 0-6M22 20c0-2.5-2-4.3-5-4.8" /></svg>
+              )}
+              {r.icon === 'yoga' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="2" /><path d="M12 7v6M9 13h6M9 13l-3 8M15 13l3 8M9 19h6" /></svg>
+              )}
+              {r.icon === 'corporate' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 21h8M12 18v3M8 9h8M8 13h5" /></svg>
+              )}
+            </div>
+            <h3 class="mt-5 text-lg">{r.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate">{r.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── WHAT THE VENUE OFFERS ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div class="order-2 aspect-[4/3] overflow-hidden rounded-lg bg-seafoam-200 lg:order-1">
+          <img
+            src="/images/general/infinity-pool-bar.jpg"
+            alt="Infinity pool and pool bar overlooking the ocean at Segara Seaside Resort"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="order-1 lg:order-2">
+          <p class="overline">What the Venue Offers</p>
+          <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Everything in One Place</h2>
+          <p class="mt-6 max-w-prose leading-relaxed text-ink/90">
+            Your retreat gets the full oceanfront setting — no shuttling between locations, no
+            booking extra venues. From the morning sauna ritual to the evening sunset, your guests
+            never have to leave the water’s edge.
+          </p>
+          <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+            {retreatFacilities.map((f) => (
+              <li class="flex items-start gap-2 text-sm text-ink/90">
+                <span class="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7l3 3 7-7" /></svg>
+                </span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="/rooms" class="btn-secondary">View Accommodation</a>
+            <a href="/wellness" class="btn-ghost">Explore Wellness ▸</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── A DAY ON RETREAT ─── */}
+  <section class="section bg-mist">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">The Flow of a Retreat Day</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">A Day on Retreat at Segara</h2>
+        <p class="mt-4 text-slate">
+          A natural rhythm of movement, sessions, rest, and connection — shaped by the ocean and the
+          island. Yours to design around.
+        </p>
+      </div>
+      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {retreatDay.map((s) => (
+          <div class="card p-8">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-lagoon-600 font-serif text-lg text-white">
+              {s.step}
+            </div>
+            <h3 class="mt-5 text-xl">{s.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── ACCOMMODATION FOR YOUR GROUP ─── */}
+  <section class="section bg-paper">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Where Your Group Stays</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Accommodation for Your Retreat</h2>
+        <p class="mt-4 text-slate">
+          Stylish Deluxe Bungalows and a spacious Two-Bedroom Villa with Private Pool — comfortable,
+          oceanfront, and flexible enough for couples, friends, or a whole group.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 md:grid-cols-3">
+        {rooms.map((room) => (
+          <a href={room.href} class="card group block">
+            <div class="aspect-[4/3] overflow-hidden bg-seafoam-200">
+              <img
+                src={room.image}
+                alt={room.name}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-6">
+              <p class="overline">{room.overline}</p>
+              <h3 class="mt-2 text-lg leading-snug">{room.name}</h3>
+              <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate">
+                <span>Sleeps {room.specs.sleeps}</span>
+                <span aria-hidden="true">·</span>
+                <span>{room.specs.size}</span>
+              </div>
+              <p class="mt-4 text-sm text-ink/90">
+                <span class="text-slate">From </span>
+                <span class="font-medium text-lagoon-700">{room.priceFromLabel}</span>
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-12 text-center">
+        <a href="/rooms" class="btn-secondary">See All Rooms &amp; Villas ▸</a>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── WHAT HOSTS SAY ─── */}
+  <section class="section bg-seafoam-100">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">In Their Words</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">What Retreat Guests Say</h2>
+        <p class="mt-4 text-slate">
+          Real reviews from guests who have joined retreats at Segara — a glimpse of the experience
+          your group could have.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 md:grid-cols-2">
+        {retreatReviews.map((r) => (
+          <figure class="card flex flex-col gap-4 p-8">
+            <svg class="h-7 w-7 text-lagoon-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 7H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2H4v2h1a4 4 0 0 0 4-4V7Zm10 0h-4a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7Z" /></svg>
+            <blockquote class="font-serif text-lg leading-relaxed text-ink">“{r.quote}”</blockquote>
+            <figcaption class="text-sm text-slate">— {r.author}, retreat guest</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ─── PRACTICAL INFO (FAQ) ─── */}
+  <section id="faq" class="section bg-paper">
+    <div class="container-content">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Good to Know</p>
+        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">Planning a Retreat at Segara</h2>
+      </div>
+      <div class="mx-auto mt-12 max-w-3xl divide-y divide-line">
+        {retreatFaqs.map((item, i) => (
+          <details class="group py-5" name="retreat-faq" open={i === 0}>
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg text-ink marker:hidden [&::-webkit-details-marker]:hidden">
+              <span>{item.question}</span>
+              <span class="mt-1 flex h-7 w-7 flex-none items-center justify-center rounded-full border border-line text-lagoon-600 transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="7" y1="1" x2="7" y2="13" /><line x1="1" y1="7" x2="13" y2="7" /></svg>
+              </span>
+            </summary>
+            <p class="mt-4 max-w-prose leading-relaxed text-slate">{item.answer}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-12 max-w-2xl text-center">
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href={contact.whatsappLink} class="btn-primary" target="_blank" rel="noopener">Enquire on WhatsApp ▸</a>
+          <a href="/contact" class="btn-secondary">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── FINAL CTA ─── */}
+  <section class="relative overflow-hidden bg-lagoon-700">
+    <div class="container-content relative z-10 py-20 text-center md:py-28">
+      <p class="overline text-white/80">Bring Your Retreat to Segara</p>
+      <h2 class="mx-auto mt-3 max-w-3xl text-[clamp(2rem,4vw,3.25rem)] leading-tight text-white">
+        Host a Retreat Your Guests Will Remember
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-white/90">
+        Tell us about your retreat — your dates, group size, and the program you have in mind. We’ll
+        help you bring it to life by the ocean on Nusa Ceningan.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href={contact.whatsappLink} class="btn-primary text-base" target="_blank" rel="noopener">Enquire on WhatsApp ▸</a>
+        <a href="/rooms" class="btn-secondary border-white/70 text-white hover:bg-white/10">See the Rooms ▸</a>
+      </div>
+    </div>
+  </section>
+</Base>

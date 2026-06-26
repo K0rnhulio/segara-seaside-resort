@@ -34,6 +34,7 @@ export const contact = {
 export const nav = [
   { label: 'Rooms', href: '/rooms' },
   { label: 'Wellness', href: '/wellness' },
+  { label: 'Retreats', href: '/retreat' },
   { label: 'Location', href: '/location' },
   { label: 'Getting Here', href: '/getting-here' },
   { label: 'Contact', href: '/contact' },
@@ -483,6 +484,184 @@ export const faqs: FAQItem[] = [
     question: 'Should I book directly with Segara?',
     answer:
       'We always recommend booking directly with us. You’ll get the best rates, more flexibility, and personal service. Many guests looking for resorts in Nusa Lembongan choose to book directly with Segara for a more authentic and stress-free experience.',
+  },
+];
+
+/**
+ * Retreats page — /retreat
+ *
+ * Segara as a venue for hosts, mastermind leaders, yoga teachers, and group
+ * organizers to run their own retreats. Data lives here per the single-source-
+ * of-truth convention; the page renders from these arrays.
+ */
+
+export type RetreatType = {
+  icon: 'wellness' | 'mastermind' | 'yoga' | 'corporate';
+  title: string;
+  body: string;
+};
+
+// The four retreat categories the venue accommodates (per client brief).
+export const retreats: RetreatType[] = [
+  {
+    icon: 'wellness',
+    title: 'Wellness & Sauna Retreats',
+    body:
+      'Build your program around our signature sauna and cold plunge ritual, ocean swims, and sunset restoration. The ocean-view wellness deck becomes the heart of your guests’ reset.',
+  },
+  {
+    icon: 'mastermind',
+    title: 'Masterminds',
+    body:
+      'An intimate, distraction-free setting for focused work sessions and deep conversation. The Two-Bedroom Villa and oceanfront deck give your group space to think, connect, and create.',
+  },
+  {
+    icon: 'yoga',
+    title: 'Yoga & Mindfulness',
+    body:
+      'Host yoga, breathwork, and meditation retreats with the Indian Ocean as your backdrop. Open-air sessions on the deck, quiet island energy, and natural rhythm to ground your practice.',
+  },
+  {
+    icon: 'corporate',
+    title: 'Corporate & Group Getaways',
+    body:
+      'Team offsites, creative workshops, and private group escapes. Take the whole resort for full privacy, with catering, transfers, and a relaxed oceanfront setting that brings people together.',
+  },
+];
+
+// "Why host at Segara" — four venue advantages shown in the intro section.
+export const retreatAdvantages = [
+  {
+    icon: 'ocean',
+    title: 'Oceanfront on Nusa Ceningan',
+    body:
+      'A dedicated oceanfront setting away from the crowds, with the infinity pool, beach, and Indian Ocean right in front of your retreat.',
+  },
+  {
+    icon: 'sauna',
+    title: 'Sauna & Cold Plunge Ritual',
+    body:
+      "Bali's only ocean-view Finnish cedar sauna and cold plunge — a ready-made wellness anchor for your program, included for all guests.",
+  },
+  {
+    icon: 'pool',
+    title: 'Infinity Pool & Beach',
+    body:
+      'A horizon-edge pool, direct access to Song Tepo Beach, and a pool bar for the in-between moments that make a retreat feel effortless.',
+  },
+  {
+    icon: 'intimate',
+    title: 'Intimate Boutique Scale',
+    body:
+      'A small number of rooms and villas means genuine privacy and personal service — or take the whole resort for a fully exclusive retreat.',
+  },
+];
+
+// "What the venue offers" — facilities checklist included for retreat groups.
+export const retreatFacilities = [
+  'Oceanfront infinity pool',
+  'Finnish cedar sauna & cold plunge',
+  'Oceanfront restaurant & pool bar',
+  'Direct access to Song Tepo Beach',
+  'Accommodation for your whole group',
+  'Two-bedroom villa with private pool',
+  'Sunset deck & open-air spaces',
+  'Transfer assistance from Bali',
+];
+
+// "A day on retreat at Segara" — the flow of a typical retreat day.
+export const retreatDay = [
+  {
+    step: '01',
+    title: 'Morning',
+    body:
+      'Begin with an ocean swim or the sauna and cold plunge ritual as the sun rises over Nusa Ceningan. A slow breakfast on the deck sets the tone for the day.',
+  },
+  {
+    step: '02',
+    title: 'Midday',
+    body:
+      'Your main session — yoga on the deck, a mastermind in the villa, or a workshop by the pool. The open-air spaces adapt to however you want to guide your group.',
+  },
+  {
+    step: '03',
+    title: 'Afternoon',
+    body:
+      'Free time to rest, swim, or explore Nusa Ceningan and Nusa Lembongan. The island’s gentle rhythm gives guests space to integrate and recharge.',
+  },
+  {
+    step: '04',
+    title: 'Evening',
+    body:
+      'Gather for sunset over the Indian Ocean, then share a meal at the oceanfront restaurant. The day closes with stillness, connection, and the sound of the waves.',
+  },
+];
+
+// Real guest reviews that mention retreats (from resort-schema.ts).
+export const retreatReviews = [
+  {
+    quote:
+      'We did the 3-night wellness retreat. Yoga and cold therapy were life-changing.',
+    author: 'Victor F.',
+  },
+  {
+    quote: 'The retreat schedule was well organized. Very restorative weekend.',
+    author: 'Nora D.',
+  },
+  {
+    quote:
+      'Highly recommend their custom retreats. The manager handled everything perfectly.',
+    author: 'Leon H.',
+  },
+  {
+    quote:
+      'The 7-night retreat was exactly what I needed to disconnect and recover.',
+    author: 'Maya V.',
+  },
+];
+
+// Organizer-focused FAQ — targets real host search intent. Feeds both the
+// visible accordion and the FAQPage JSON-LD schema on /retreat.
+export const retreatFaqs: FAQItem[] = [
+  {
+    question: 'Can I host a retreat at Segara Seaside Resort?',
+    answer:
+      'Yes. Segara is an ideal oceanfront venue for wellness, yoga, mastermind, and group retreats on Nusa Ceningan. With a small number of rooms and villas, an infinity pool, an ocean-view sauna and cold plunge, and direct beach access, everything your group needs is in one intimate setting. Message us on WhatsApp to tell us about your retreat and we’ll help you plan it.',
+  },
+  {
+    question: 'How many guests can a retreat accommodate?',
+    answer:
+      'Our rooms and Two-Bedroom Villa with Private Pool comfortably host small to mid-sized retreat groups, and the whole resort can be booked for an exclusive, private retreat experience. Whether you are planning an intimate gathering for a few close guests or a larger group takeover, get in touch and we will tailor the arrangements to your group size.',
+  },
+  {
+    question: 'Can I book the entire resort for an exclusive retreat?',
+    answer:
+      'Yes. A whole-resort buyout gives your retreat complete privacy — the infinity pool, sauna and cold plunge, restaurant, and beach access are exclusively yours. This is a popular option for masterminds, corporate offsites, and private group retreats. Contact us on WhatsApp to check availability and pricing for an exclusive booking.',
+  },
+  {
+    question: 'Is the venue suitable for yoga and wellness sessions?',
+    answer:
+      'Absolutely. The oceanfront deck, open-air spaces, and quiet island setting on Nusa Ceningan are perfect for yoga, breathwork, meditation, and wellness sessions. Our ocean-view sauna and cold plunge ritual can be built directly into your program, and the infinity pool and beach give your guests natural restoration between sessions.',
+  },
+  {
+    question: 'Can you provide catering for a retreat group?',
+    answer:
+      'Yes. Our on-site oceanfront restaurant serves fresh breakfasts, lunches, and dinners, and the pool bar offers juices, cocktails, and light fare throughout the day. We can arrange meal plans and mindful dining tailored to your retreat’s schedule and dietary needs. Let us know your requirements when you enquire.',
+  },
+  {
+    question: 'Do you help with transfers for retreat guests?',
+    answer:
+      'Yes. Most guests travel by fast boat from Sanur in Bali to Nusa Lembongan, then cross the Yellow Bridge to Nusa Ceningan. We can help arrange boat transfers and onward transport so your group arrives smoothly. This is especially helpful for retreat hosts coordinating several guests arriving from different places.',
+  },
+  {
+    question: 'When is the best time of year to host a retreat at Segara?',
+    answer:
+      'The dry season (roughly April to October) brings sunny skies and calm seas, ideal for ocean swims and outdoor sessions. The quieter months offer more availability and a gentler pace. We host retreats year-round — the sauna, pool, and covered spaces work in any weather. Message us to find the best dates for your program.',
+  },
+  {
+    question: 'How do I enquire about hosting a retreat?',
+    answer:
+      'The simplest way is to message us on WhatsApp with a few details about your retreat — your dates, group size, and the kind of program you are planning. Our team will help you put together the right combination of rooms, spaces, catering, and experiences for your group.',
   },
 ];
 
