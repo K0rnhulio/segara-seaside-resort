@@ -84,7 +84,7 @@ this file, so changes propagate everywhere automatically.
 ## TODO before launch
 
 - [ ] Replace placeholder SVGs in `public/images/` with real photography
-- [ ] Add `public/video/segara-hero.mp4` (≤ 4–6 MB desktop, ≤ 3 MB mobile)
+- [ ] Add `public/video/segara-hero.mp4` (≤ 2–3 MB recommended for fast loading)
 - [ ] Provide a real logo SVG (replace the ◆ wordmark)
 - [ ] Wire `/book` to a real booking engine or WhatsApp form
 - [ ] Build remaining pages: `/rooms/*`, `/dining`, `/wellness`, `/experiences`,
