@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://segaraseasideresort.com/sitemap-index.xml
+Sitemap: https://segaraseasideresort.netlify.app/sitemap-index.xml

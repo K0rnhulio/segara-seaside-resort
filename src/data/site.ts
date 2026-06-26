@@ -7,8 +7,12 @@
 export const site = {
   name: 'Segara Seaside Resort',
   tagline: 'Boutique oceanfront stay near Nusa Lembongan',
-  domain: 'segaraseasideresort.com',
-  url: 'https://segaraseasideresort.com',
+  domain: 'segaraseasideresort.netlify.app',
+  // NOTE: the .com domain is a separate Cloudflare-hosted site that does not
+  // serve /images/* (404), which breaks WhatsApp/social link previews. Until
+  // .com is fully deployed (including the OG image), point canonical/OG URLs
+  // at the Netlify domain that actually serves the full site + assets.
+  url: 'https://segaraseasideresort.netlify.app',
   description:
     'Discover a peaceful boutique resort near Nusa Lembongan on Nusa Ceningan. Infinity pool, sauna & cold plunge, pet-friendly stays, and steps from Song Tepo Beach. Book direct for the best experience.',
   locale: 'en_US',

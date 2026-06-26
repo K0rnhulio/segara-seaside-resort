@@ -13,8 +13,8 @@ export const resortSchema = {
   '@context': 'https://schema.org',
   '@type': 'Resort',
   name: 'Segara Seaside Resort',
-  url: 'https://segaraseasideresort.com/#rooms',
-  image: 'https://segaraseasideresort.com/images/general/aerial-infinity-pool.jpg',
+  url: 'https://segaraseasideresort.netlify.app/#rooms',
+  image: 'https://segaraseasideresort.netlify.app/images/general/aerial-infinity-pool.jpg',
   description:
     'Beachfront 2-bedroom villas with private pools, an infinity pool blending into the Indian Ocean, and Bali\'s only ocean-view Finnish cedar sauna and cold plunge.',
   address: {
