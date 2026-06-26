@@ -174,6 +174,48 @@ const faqSchema = {
     </div>
   </section>
 
+  {/* ─── SAUNA VIDEO (cinematic full-bleed) ─── */}
+  <section class="relative overflow-hidden bg-lagoon-700">
+    {/* Ambient video — muted, autoplay, loops. Poster = static fallback.
+        prefers-reduced-motion handled via CSS below (hide video, show poster). */}
+    <video
+      class="absolute inset-0 h-full w-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="/images/general/outdoor.jpg"
+      data-sauna-video
+      aria-hidden="true"
+    >
+      <source src="/video/sauna.mp4" type="video/mp4" />
+    </video>
+
+    {/* Legibility gradient */}
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-lagoon-700/80 via-lagoon-700/30 to-transparent"></div>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-lagoon-700/60 via-transparent to-lagoon-700/20"></div>
+
+    <div class="container-bleed relative z-10 flex min-h-[60vh] items-center py-20">
+      <div class="max-w-xl text-white">
+        <p class="overline text-white/80">A Glimpse of the Ritual</p>
+        <h2 class="mt-4 text-[clamp(2rem,4vw,3.25rem)] leading-[1.1] text-white">
+          Step Into the Heat
+        </h2>
+        <p class="mt-6 max-w-md text-lg leading-relaxed text-white/90">
+          Finnish cedar, a genuine Harvia stone heater, and panoramic windows over the Indian Ocean.
+          This is what 90°C feels like when the sea is your backdrop — and the cold plunge is waiting
+          just outside the door.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🔥 90°C Harvia heater</span>
+          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🪵 Finnish cedar</span>
+          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🌊 Ocean view</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   {/* ─── THE SIGNATURE RITUAL (hero offering) ─── */}
   <section class="section bg-paper">
     <div class="container-content">
@@ -343,3 +385,12 @@ const faqSchema = {
     </div>
   </section>
 </Base>
+
+<style>
+  /* Reduced motion: hide the sauna ambient video, rely on the poster image instead */
+  @media (prefers-reduced-motion: reduce) {
+    [data-sauna-video] {
+      display: none;
+    }
+  }
+</style>
