@@ -343,24 +343,6 @@ export const valueProps = [
   },
 ];
 
-export const experiences = [
-  {
-    title: 'Snorkel & Reef Tours',
-    body: 'Glide over pristine coral gardens teeming with marine life, minutes from the resort.',
-    image: '/images/experiences/snorkel-reef-tour.svg',
-  },
-  {
-    title: 'Blue Lagoon Cliff Jump',
-    body: 'The island’s #1 thrill — leap into the turquoise lagoon from 4 to 13 metres.',
-    image: '/images/experiences/blue-lagoon-cliff-jump.svg',
-  },
-  {
-    title: 'Nusa Penida Day Trips',
-    body: 'Manta Point, Crystal Bay & Kelingking Beach — the iconic sights, a short boat away.',
-    image: '/images/experiences/penida-day-trip.svg',
-  },
-];
-
 export const reviews = {
   googleRating: 4.9,
   googleCount: 148,
