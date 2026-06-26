@@ -1,9 +1,14 @@
 /**
- * Resort schema with 100 reviews + aggregateRating.
+ * Resort schema with aggregateRating + embedded reviews.
  * Powers star-rating rich results in Google search.
- * Sourced from client-provided schema (2026-06-20).
  *
+ * The aggregateRating mirrors the homepage Hotel schema so the two stay
+ * consistent: both read from the same `reviews` source in site.ts
+ * (Google rating 4.9, 148 reviews). Embedded review bodies below are
+ * sample testimonials carried over from the client-provided schema.
  */
+import { reviews } from './site';
+
 export const resortSchema = {
   '@context': 'https://schema.org',
   '@type': 'Resort',
@@ -20,10 +25,10 @@ export const resortSchema = {
   },
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.4',
+    ratingValue: reviews.googleRating,
     bestRating: '5',
     worstRating: '1',
-    reviewCount: '100',
+    reviewCount: reviews.googleCount,
   },
   review: [
     { '@type': 'Review', author: { '@type': 'Person', name: 'Lukas M.' }, reviewRating: { '@type': 'Rating', ratingValue: '5' }, reviewBody: 'The infinity pool here is absolutely breathtaking. You feel like you are swimming right into the ocean.' },
