@@ -30,9 +30,9 @@ Segara/
 │   └── 05-wireframes.md
 ├── public/                     # static assets served as-is
 │   ├── images/                 # placeholder SVGs (replace with real photos)
-│   ├── video/                  # ← drop hero.mp4 here
-│   ├── favicon.svg
-│   ├── og-default.svg
+│   ├── video/                  # ← drop segara-hero.mp4 here
+│   ├── segara-favicon.svg
+│   ├── segara-og-default.svg
 │   └── robots.txt
 ├── src/
 │   ├── components/
@@ -84,7 +84,7 @@ this file, so changes propagate everywhere automatically.
 ## TODO before launch
 
 - [ ] Replace placeholder SVGs in `public/images/` with real photography
-- [ ] Add `public/video/hero.mp4` (≤ 4–6 MB desktop, ≤ 3 MB mobile)
+- [ ] Add `public/video/segara-hero.mp4` (≤ 4–6 MB desktop, ≤ 3 MB mobile)
 - [ ] Provide a real logo SVG (replace the ◆ wordmark)
 - [ ] Wire `/book` to a real booking engine or WhatsApp form
 - [ ] Build remaining pages: `/rooms/*`, `/dining`, `/wellness`, `/experiences`,

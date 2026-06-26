@@ -165,8 +165,8 @@ export const rooms: Room[] = [
       'Escape to your own private sanctuary at Segara Seaside Resort. Our Two-Bedroom Villa with Private Pool is the most spacious accommodation we offer — perfect for families, groups of friends, or couples who want extra space and privacy near Nusa Lembongan.\n\nWake up in one of the two separate bedrooms and step outside to your own private plunge pool, surrounded by tropical greenery with uninterrupted views of the Indian Ocean. The open-plan living and dining area flows directly onto the pool deck, creating a seamless indoor-outdoor living experience. Watch the sun set over Nusa Ceningan while enjoying complete privacy.\n\nWhether you’re planning a relaxed family holiday or a group getaway, this villa offers the perfect balance of comfort, space, and location — just minutes from the Yellow Bridge and everything Nusa Lembongan has to offer.',
     priceFromLabel: 'IDR 3,600,300',
     priceFromIDR: 3600300,
-    image: '/images/rooms/villa.jpg',
-    gallery: ['/images/rooms/villa.jpg', '/images/general/pool-bar.jpg', '/images/general/outdoor.jpg'],
+    image: '/images/rooms/two-bedroom-villa.jpg',
+    gallery: ['/images/rooms/two-bedroom-villa.jpg', '/images/general/infinity-pool-bar.jpg', '/images/general/bungalows-exterior.jpg'],
     specs: {
       size: '66 m²',
       beds: '2 Bedrooms (1 King bed + 2 Twin beds)',
@@ -230,8 +230,8 @@ export const rooms: Room[] = [
       'The Deluxe Bungalow with Sea View is our most sought-after room for couples and sunset chasers. Wake up to the sight and sound of the ocean right outside your door, with direct views over the infinity pool and the sea beyond. Thoughtfully designed with a king bed, natural light, and tropical-modern finishes, this bungalow blends comfort with the laid-back beauty of Nusa Ceningan. Step out and you’re moments from the pool deck, the restaurant, and Song Tepo Beach — making it the perfect base for a romantic escape near Nusa Lembongan.',
     priceFromLabel: 'IDR 2,825,000',
     priceFromIDR: 2825000,
-    image: '/images/rooms/bungalow-sea-view.jpg',
-    gallery: ['/images/rooms/bungalow-sea-view.jpg', '/images/rooms/ocean-bungalow.jpg', '/images/rooms/ocean-bungalow-2.jpg'],
+    image: '/images/rooms/sea-view-bungalow.jpg',
+    gallery: ['/images/rooms/sea-view-bungalow.jpg', '/images/rooms/ocean-view-bungalow.jpg', '/images/rooms/ocean-view-bungalow-deck.jpg'],
     specs: { size: '27 m²', beds: '1 King bed', sleeps: 2, view: 'Direct sea & pool views' },
     features: ['Sea view', 'Pool view', 'Sleeps 2', 'AC', 'Minibar', 'Wi-Fi'],
     perfectFor: [
@@ -280,8 +280,8 @@ export const rooms: Room[] = [
       'Relax in a cozy, stylish retreat at Segara Seaside Resort. Our Deluxe Bungalow is tucked into the resort’s quiet tropical gardens — an ideal choice for couples and solo travelers seeking great value without compromising on comfort.\n\nEach bungalow is compact yet thoughtfully designed, with air conditioning, a comfortable king bed, and all the modern amenities you need for a relaxing island stay. You’re just a short stroll from the infinity pool, Song Tepo Beach, and the oceanfront restaurant.\n\nWith easy access to everything Segara and nearby Nusa Lembongan have to offer, this bungalow is the perfect affordable base for exploring the islands at your own pace.',
     priceFromLabel: 'IDR 2,200,000',
     priceFromIDR: 2200000,
-    image: '/images/rooms/bungalow.jpg',
-    gallery: ['/images/rooms/bungalow.jpg', '/images/general/outdoor.jpg', '/images/general/resort-aerial.jpg'],
+    image: '/images/rooms/deluxe-bungalow.jpg',
+    gallery: ['/images/rooms/deluxe-bungalow.jpg', '/images/general/bungalows-exterior.jpg', '/images/general/aerial-infinity-pool.jpg'],
     specs: { size: '27 m²', beds: '1 King bed', sleeps: 2, view: 'Garden view' },
     features: ['Garden view', 'Sleeps 2', 'AC', 'Wi-Fi'],
     perfectFor: [
@@ -347,17 +347,17 @@ export const experiences = [
   {
     title: 'Snorkel & Reef Tours',
     body: 'Glide over pristine coral gardens teeming with marine life, minutes from the resort.',
-    image: '/images/experiences/snorkeling.svg',
+    image: '/images/experiences/snorkel-reef-tour.svg',
   },
   {
     title: 'Blue Lagoon Cliff Jump',
     body: 'The island’s #1 thrill — leap into the turquoise lagoon from 4 to 13 metres.',
-    image: '/images/experiences/blue-lagoon.svg',
+    image: '/images/experiences/blue-lagoon-cliff-jump.svg',
   },
   {
     title: 'Nusa Penida Day Trips',
     body: 'Manta Point, Crystal Bay & Kelingking Beach — the iconic sights, a short boat away.',
-    image: '/images/experiences/penida.svg',
+    image: '/images/experiences/penida-day-trip.svg',
   },
 ];
 

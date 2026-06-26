@@ -3,7 +3,7 @@
 import sharp from 'sharp';
 import { readFileSync } from 'fs';
 
-const source = readFileSync('public/images/general/resort-aerial.jpg');
+const source = readFileSync('public/images/general/aerial-infinity-pool.jpg');
 
 // SVG overlay with brand name + tagline (positioned over the photo)
 const overlay = Buffer.from(`
@@ -25,6 +25,6 @@ await sharp(source)
   .resize(1200, 630, { fit: 'cover', position: 'centre' })
   .composite([{ input: overlay, gravity: 'centre' }])
   .jpeg({ quality: 85, progressive: true })
-  .toFile('public/images/og-share.jpg');
+  .toFile('public/images/segara-og-share.jpg');
 
-console.log('Created public/images/og-share.jpg (1200x630)');
+console.log('Created public/images/segara-og-share.jpg (1200x630)');

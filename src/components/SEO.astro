@@ -18,7 +18,7 @@ interface Props {
 const {
   title,
   description = site.description,
-  image = '/images/og-share.jpg', // default social share image (1200x630 JPG)
+  image = '/images/segara-og-share.jpg', // default social share image (1200x630 JPG)
   canonical,
   noindex = false,
   schema,
@@ -31,7 +31,7 @@ const canonicalURL = new URL(canonical ?? Astro.url.pathname, site.url);
 const ogImage = new URL(image, site.url);
 
 // Social image dimensions — helps platforms render cards faster
-const isDefaultOG = image === '/images/og-share.jpg';
+const isDefaultOG = image === '/images/segara-og-share.jpg';
 const ogWidth = isDefaultOG ? 1200 : 1200;
 const ogHeight = isDefaultOG ? 630 : 630;
 const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
