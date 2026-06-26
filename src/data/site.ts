@@ -156,7 +156,7 @@ export const rooms: Room[] = [
     slug: 'sunset-villa',
     name: 'Two-Bedroom Villa with Private Pool',
     overline: '2-Bedroom Villa',
-    metaTitle: 'Two-Bedroom Villa with Private Pool | Segara Resort',
+    metaTitle: 'Two-Bedroom Villa with Private Pool | Segara Seaside Resort',
     metaDescription:
       'Spacious Two-Bedroom Villa with private plunge pool on Nusa Ceningan. Sea views, open living, ideal for families and groups. Near Nusa Lembongan. Book direct.',
     shortDescription:
@@ -221,7 +221,7 @@ export const rooms: Room[] = [
     slug: 'ocean-bungalow',
     name: 'Deluxe Bungalow with Sea View',
     overline: 'Sea-View Bungalow',
-    metaTitle: 'Deluxe Bungalow with Sea View | Segara Resort',
+    metaTitle: 'Deluxe Bungalow with Sea View | Segara Seaside Resort',
     metaDescription:
       'Wake up to direct ocean and pool views in our Deluxe Bungalow with Sea View on Nusa Ceningan. King bed, modern amenities, steps from the beach. Book direct.',
     shortDescription:
@@ -271,7 +271,7 @@ export const rooms: Room[] = [
     slug: 'bungalow',
     name: 'Deluxe Bungalow',
     overline: 'Garden or Sea View',
-    metaTitle: 'Deluxe Bungalow | Segara Resort Nusa Ceningan',
+    metaTitle: 'Deluxe Bungalow | Segara Seaside Resort, Nusa Ceningan',
     metaDescription:
       'Cozy, stylish Deluxe Bungalow on Nusa Ceningan. Garden setting, modern amenities, easy access to pool and beach. Great value near Nusa Lembongan.',
     shortDescription:
