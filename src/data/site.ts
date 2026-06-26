@@ -24,6 +24,7 @@ export const contact = {
   instagramUrl: 'https://www.instagram.com/segaraseaside/',
   facebook: 'https://www.facebook.com/',
   tiktok: 'https://www.tiktok.com/@segaraseaside',
+  tiktokHandle: '@segaraseaside',
 } as const;
 
 export const nav = [
@@ -399,15 +400,44 @@ export const locationPoints = [
   'Perfect base for exploring both Nusa Lembongan and Nusa Ceningan',
 ];
 
-export const instagramTiles = [
-  // Curated static grid — see wireframes §8. Replace with build-time fetch later.
-  { image: '/images/instagram/tile-1.svg', url: 'https://www.instagram.com/segaraseaside/' },
-  { image: '/images/instagram/tile-2.svg', url: 'https://www.instagram.com/segaraseaside/' },
-  { image: '/images/instagram/tile-3.svg', url: 'https://www.instagram.com/segaraseaside/' },
-  { image: '/images/instagram/tile-4.svg', url: 'https://www.instagram.com/segaraseaside/' },
-  { image: '/images/instagram/tile-5.svg', url: 'https://www.instagram.com/segaraseaside/' },
-  { image: '/images/instagram/tile-6.svg', url: 'https://www.instagram.com/segaraseaside/' },
+/**
+ * TikTok feed — curated embeds.
+ *
+ * TikTok has no unauthenticated "latest posts" API (the Display API
+ * requires app approval that's routinely rejected for embed-your-own-feed
+ * use cases), so we curate the videos manually here. Each entry is a real
+ * TikTok post from @segaraseaside, embedded as a live, playable iframe on
+ * the homepage via the no-auth embed player:
+ *   https://www.tiktok.com/player/v1/{videoId}
+ *
+ * To add/swap a video: paste its full TikTok URL into `url` — the numeric
+ * video ID is extracted automatically at render time. `caption` is a short
+ * on-brand label shown under the embed (the TikTok description itself is
+ * also rendered inside the iframe via ?description=1).
+ */
+export type TikTokVideo = {
+  url: string;       // full TikTok post URL — video ID parsed from it
+  caption?: string;  // optional short label shown beneath the embed
+};
+
+export const tiktokVideos: TikTokVideo[] = [
+  { url: 'https://www.tiktok.com/@segaraseaside/video/7649689105894329618' },
+  { url: 'https://www.tiktok.com/@segaraseaside/video/7603697429589904648' },
+  { url: 'https://www.tiktok.com/@segaraseaside/video/7647479777674153223' },
+  { url: 'https://www.tiktok.com/@segaraseaside/video/7644133697062472968' },
+  { url: 'https://www.tiktok.com/@segaraseaside/video/7637486075727875346' },
+  { url: 'https://www.tiktok.com/@segaraseaside/video/7616953564283473160' },
 ];
+
+/**
+ * Extract the numeric video ID from a TikTok post URL.
+ *   "https://www.tiktok.com/@user/video/7649...618?is_from_webapp=1" → "7649...618"
+ * Used by the homepage TikTok section to build the embed-player iframe src.
+ */
+export function tiktokVideoId(url: string): string {
+  const match = url.match(/\/video\/(\d+)/);
+  return match ? match[1] : '';
+}
 
 /**
  * Homepage FAQ — SEO-heavy content. Each question targets a real search query

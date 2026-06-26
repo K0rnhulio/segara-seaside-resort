@@ -12,7 +12,8 @@ import {
   valueProps,
   experiences,
   reviews,
-  instagramTiles,
+  tiktokVideos,
+  tiktokVideoId,
   contact,
   wellnessHighlights,
   locationPoints,
@@ -369,43 +370,45 @@ const faqSchema = {
     </div>
   </section>
 
-  {/* ───────────────────────── SECTION 8 — INSTAGRAM FEED ───────────────────────── */}
+  {/* ───────────────────────── SECTION 8 — TIKTOK FEED ───────────────────────── */}
   <section class="section bg-paper">
     <div class="container-content">
       <div class="mx-auto max-w-2xl text-center">
         <p class="overline">Follow the Journey</p>
-        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">{contact.instagram}</h2>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">{contact.tiktokHandle}</h2>
+        <p class="mt-4 text-slate">
+          Get a feel for Segara through our latest videos — the ocean, the sunsets, the sauna, and
+          everyday life on Nusa Ceningan.
+        </p>
       </div>
-      <div class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      <div class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
-          instagramTiles.map((tile) => (
-            <a
-              href={tile.url}
-              target="_blank"
-              rel="noopener"
-              class="group relative aspect-square overflow-hidden rounded-lg bg-seafoam-200"
-              aria-label="View on Instagram"
-            >
-              <img
-                src={tile.image}
-                alt="Instagram post"
-                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 flex items-center justify-center bg-lagoon-700/0 opacity-0 transition-all duration-300 group-hover:bg-lagoon-700/40 group-hover:opacity-100">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="white" />
-                </svg>
-              </div>
-            </a>
-          ))
+          tiktokVideos.map((video) => {
+            const id = tiktokVideoId(video.url);
+            return (
+              <figure class="overflow-hidden rounded-lg border border-line bg-mist shadow-sm">
+                <div class="aspect-[9/16] w-full bg-ink">
+                  <iframe
+                    src={`https://www.tiktok.com/player/v1/${id}?description=1&music_info=1&progress_bar=1&play_button=1&fullscreen_button=1`}
+                    class="h-full w-full"
+                    allow="fullscreen"
+                    title={`TikTok video ${id} from ${contact.tiktokHandle}`}
+                    loading="lazy"
+                  />
+                </div>
+                {video.caption && (
+                  <figcaption class="px-4 py-3 text-center text-sm text-slate">
+                    {video.caption}
+                  </figcaption>
+                )}
+              </figure>
+            );
+          })
         }
       </div>
       <div class="mt-10 text-center">
-        <a href={contact.instagramUrl} class="btn-secondary" target="_blank" rel="noopener">
-          Follow {contact.instagram} ▸
+        <a href={contact.tiktok} class="btn-secondary" target="_blank" rel="noopener">
+          Follow {contact.tiktokHandle} on TikTok ▸
         </a>
       </div>
     </div>
