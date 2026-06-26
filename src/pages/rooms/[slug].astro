@@ -10,7 +10,7 @@
  * See booking config + buildBookingUrl() in src/data/site.ts.
  */
 import Base from '@layouts/Base.astro';
-import { rooms, site, contact, booking, buildBookingUrl } from '@data/site';
+import { rooms, site, contact, booking, buildBookingUrl, reviews } from '@data/site';
 
 // Static prerender of all rooms → /rooms/sunset-villa, /rooms/ocean-bungalow, /rooms/bungalow
 export function getStaticPaths() {
@@ -52,8 +52,8 @@ const roomSchema = {
   priceRange: '$$$',
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.4',
-    reviewCount: '100',
+    ratingValue: String(reviews.googleRating),
+    reviewCount: String(reviews.googleCount),
   },
   address: {
     '@type': 'PostalAddress',

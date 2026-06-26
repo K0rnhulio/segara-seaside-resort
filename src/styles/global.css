@@ -112,3 +112,29 @@ img[data-blur-up] {
 img[data-blur-up].loaded {
   filter: blur(0);
 }
+
+/* ───────────────────────────────────────────────────────────
+   Legal pages (privacy, terms) — long-form prose styling
+   ─────────────────────────────────────────────────────────── */
+.prose-legal {
+  @apply text-slate;
+}
+.prose-legal .lead {
+  @apply text-lg leading-relaxed text-ink;
+}
+.prose-legal h2 {
+  @apply mt-10 text-xl text-ink;
+}
+.prose-legal p {
+  @apply mt-4 leading-relaxed;
+}
+.prose-legal ul {
+  @apply mt-4 space-y-2 pl-5;
+  list-style: disc;
+}
+.prose-legal li {
+  @apply leading-relaxed;
+}
+.prose-legal a {
+  @apply text-lagoon-600 underline underline-offset-2 hover:text-lagoon-700;
+}

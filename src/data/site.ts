@@ -22,7 +22,7 @@ export const contact = {
   email: 'hello@segaraseasideresort.com',
   instagram: '@segaraseaside',
   instagramUrl: 'https://www.instagram.com/segaraseaside/',
-  facebook: 'https://www.facebook.com/',
+  facebook: 'https://www.facebook.com/profile.php?id=61558200825451',
   tiktok: 'https://www.tiktok.com/@segaraseaside',
   tiktokHandle: '@segaraseaside',
 } as const;

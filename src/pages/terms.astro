@@ -1,0 +1,115 @@
+---
+/**
+ * Terms & Conditions page — /terms
+ * Linked from the footer on every page.
+ * Covers bookings, payments, cancellation, check-in/out, and conduct.
+ */
+import Base from '@layouts/Base.astro';
+import { site, contact } from '@data/site';
+
+const lastUpdated = '26 June 2026';
+---
+<Base
+  title="Terms & Conditions"
+  description="The terms and conditions governing bookings and stays at Segara Seaside Resort, including cancellation, payment, and house policies."
+  noindex={false}
+>
+  <section class="bg-lagoon-700 py-16 text-white md:py-20">
+    <div class="container-content text-center">
+      <p class="overline text-white/70">Legal</p>
+      <h1 class="mt-3 text-[clamp(2rem,4vw,3rem)] text-white">Terms &amp; Conditions</h1>
+      <p class="mt-3 text-sm text-white/70">Last updated: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <section class="section bg-paper">
+    <div class="container-content max-w-3xl">
+      <div class="prose-legal">
+        <p class="lead">
+          Please read these Terms &amp; Conditions carefully before making a booking at
+          {site.name}. By booking a room or using our services, you agree to be bound by
+          these terms.
+        </p>
+
+        <h2>1. Bookings &amp; Reservations</h2>
+        <ul>
+          <li>Reservations can be made directly through our website, via WhatsApp, or through third-party booking platforms.</li>
+          <li>A booking is confirmed only after we have acknowledged it in writing (email or WhatsApp) and any required deposit has been received.</li>
+          <li>All guests must provide valid identification upon check-in.</li>
+        </ul>
+
+        <h2>2. Check-In &amp; Check-Out</h2>
+        <ul>
+          <li>Check-in time: from 2:00 PM (14:00) local time.</li>
+          <li>Check-out time: by 11:00 AM local time.</li>
+          <li>Early check-in and late check-out are subject to availability and may incur additional charges. Please contact us in advance to arrange.</li>
+        </ul>
+
+        <h2>3. Payment</h2>
+        <ul>
+          <li>Room rates are quoted in Indonesian Rupiah (IDR) and are subject to applicable taxes and service charges.</li>
+          <li>Payment methods and deposit requirements will be communicated at the time of booking.</li>
+          <li>Prices published on our website are indicative and may change without notice. The rate confirmed at the time of booking is binding.</li>
+        </ul>
+
+        <h2>4. Cancellation Policy</h2>
+        <ul>
+          <li>Cancellations made at least 7 days before the check-in date: no charge (full refund of any deposit).</li>
+          <li>Cancellations made within 7 days of the check-in date: the first night's room rate may be charged.</li>
+          <li>No-shows (failure to arrive without prior notice): the full booking value may be charged.</li>
+          <li>We understand that unforeseen circumstances arise. Please contact us as early as possible and we will do our best to accommodate.</li>
+        </ul>
+
+        <h2>5. House Rules &amp; Conduct</h2>
+        <ul>
+          <li>Guests are expected to respect other guests, staff, and the property at all times.</li>
+          <li>Quiet hours: 10:00 PM – 7:00 AM.</li>
+          <li>Smoking is not permitted inside rooms or enclosed public areas. Designated outdoor smoking areas are available.</li>
+          <li>The resort is not responsible for loss or damage to personal belongings left on the premises.</li>
+          <li>Any damage to resort property caused by a guest will be charged to that guest.</li>
+        </ul>
+
+        <h2>6. Pet Policy</h2>
+        <ul>
+          <li>We welcome well-behaved dogs and other pets at no extra charge, subject to prior notice at the time of booking.</li>
+          <li>Pets must be supervised at all times and must not disturb other guests.</li>
+          <li>Owners are responsible for cleaning up after their pets and for any damage caused by them.</li>
+        </ul>
+
+        <h2>7. Wellness Facilities</h2>
+        <ul>
+          <li>The sauna, cold plunge, and infinity pool are available for in-house guests. Day-visitor access may be available — please enquire.</li>
+          <li>Guests with medical conditions (especially heart conditions, pregnancy, or high/low blood pressure) should consult a doctor before using the sauna or cold plunge.</li>
+          <li>Use of wellness facilities is at the guest's own risk.</li>
+        </ul>
+
+        <h2>8. Force Majeure</h2>
+        <p>
+          We are not liable for failure to provide services due to circumstances beyond our
+          reasonable control, including but not limited to natural disasters, adverse weather,
+          transport disruptions, government actions, or other force majeure events. In such
+          cases, we will work with you to reschedule or refund your booking where possible.
+        </p>
+
+        <h2>9. Governing Law</h2>
+        <p>
+          These Terms &amp; Conditions are governed by the laws of the Republic of Indonesia.
+          Any disputes shall be resolved in the jurisdiction of Klungkung Regency, Bali,
+          Indonesia.
+        </p>
+
+        <h2>10. Contact</h2>
+        <p>If you have any questions about these Terms &amp; Conditions, please contact us:</p>
+        <ul>
+          <li>Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li>WhatsApp: <a href={contact.whatsappLink} target="_blank" rel="noopener">{contact.whatsapp}</a></li>
+          <li>Address: {contact.addressLine1}, {contact.addressLine2}</li>
+        </ul>
+      </div>
+
+      <div class="mt-12 border-t border-line pt-6">
+        <a href="/" class="btn-ghost">← Back to home</a>
+      </div>
+    </div>
+  </section>
+</Base>

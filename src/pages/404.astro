@@ -1,0 +1,51 @@
+---
+/**
+ * Custom 404 page — served when a visitor hits a non-existent route.
+ * Astro automatically uses src/pages/404.astro for any 404 response.
+ */
+import Base from '@layouts/Base.astro';
+import { site, contact, generalBookingUrl } from '@data/site';
+---
+<Base
+  title="Page Not Found"
+  description="The page you were looking for doesn't exist. Explore Segara Seaside Resort — a boutique oceanfront stay near Nusa Lembongan."
+  noindex={true}
+>
+  <section class="flex min-h-[70vh] items-center bg-lagoon-700 text-white">
+    <div class="container-content text-center">
+      <p class="font-serif text-[clamp(5rem,15vw,9rem)] leading-none text-white/30">404</p>
+      <h1 class="mt-4 text-[clamp(1.75rem,4vw,2.5rem)] text-white">
+        This page has drifted out to sea
+      </h1>
+      <p class="mx-auto mt-4 max-w-md text-white/80">
+        The page you're looking for doesn't exist or may have moved. Let's get you back on
+        course.
+      </p>
+
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href="/" class="btn-primary">← Back to home</a>
+        <a href="/rooms" class="btn border border-white/40 text-white hover:bg-white/10">
+          Explore rooms
+        </a>
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4 text-sm text-white/70">
+        <a href="/wellness" class="hover:text-white">Wellness</a>
+        <span aria-hidden="true">·</span>
+        <a href="/location" class="hover:text-white">Location</a>
+        <span aria-hidden="true">·</span>
+        <a href="/getting-here" class="hover:text-white">Getting Here</a>
+        <span aria-hidden="true">·</span>
+        <a href="/contact" class="hover:text-white">Contact</a>
+      </div>
+
+      <p class="mt-8 text-sm text-white/60">
+        Or message us on
+        <a href={contact.whatsappLink} target="_blank" rel="noopener" class="text-white underline underline-offset-2 hover:text-white/80">
+          WhatsApp
+        </a>
+        — we usually reply within a few hours.
+      </p>
+    </div>
+  </section>
+</Base>

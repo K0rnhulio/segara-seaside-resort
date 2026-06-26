@@ -4,7 +4,7 @@
  * Every page passes its own title/description; defaults come from site data.
  * See docs/01-keyword-research.md §5 (SEO content rules).
  */
-import { site } from '@data/site';
+import { site, contact } from '@data/site';
 
 interface Props {
   title: string; // page title — should lead with primary keyword
@@ -59,7 +59,7 @@ const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
 <meta property="og:locale" content={site.locale} />
 {/* Facebook page link (shows "Visit Page" in shared posts) */}
-<meta property="article:publisher" content={site.url} />
+<meta property="article:publisher" content={contact.facebook} />
 
 {/* Twitter Card */}
 <meta name="twitter:card" content="summary_large_image" />

@@ -5,7 +5,7 @@
  * Per docs/02-sitemap.md.
  */
 import Base from '@layouts/Base.astro';
-import { rooms, site } from '@data/site';
+import { rooms, site, reviews } from '@data/site';
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -42,8 +42,8 @@ const roomsLodgingSchema = {
   priceRange: '$$$',
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.4',
-    reviewCount: '100',
+    ratingValue: String(reviews.googleRating),
+    reviewCount: String(reviews.googleCount),
   },
   address: {
     '@type': 'PostalAddress',
