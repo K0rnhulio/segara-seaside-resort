@@ -64,33 +64,36 @@ const faqSchema = {
 >
   {/* ─── HERO ─── */}
   <section class="relative flex min-h-[100svh] items-center overflow-hidden bg-lagoon-700">
-    <img
-      src="/images/general/aerial-infinity-pool.jpg"
-      alt="Aerial view of Segara Seaside Resort infinity pool and oceanfront on Nusa Ceningan"
+    {/* Background video — muted, autoplay, loops. Poster = static fallback.
+        prefers-reduced-motion: hide video via CSS, show poster image instead. */}
+    <video
       class="absolute inset-0 h-full w-full object-cover"
-      loading="eager"
-    />
-    {/* Legibility gradient (left + bottom) */}
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-lagoon-700/90 via-lagoon-700/45 to-transparent"></div>
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-lagoon-700/75 via-transparent to-lagoon-700/25"></div>
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="/images/general/aerial-infinity-pool.jpg"
+      data-hero-video
+      aria-hidden="true"
+      disablepictureinpicture
+      disableremoteplayback
+    >
+      <source src="/video/segara-hero.mp4" type="video/mp4" />
+    </video>
 
-    <div class="container-bleed relative z-10 py-24">
+    {/* Legibility gradient (top + bottom) */}
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-lagoon-700/40 via-transparent to-lagoon-700/60"></div>
+
+    <div class="container-bleed relative z-10 flex min-h-[100svh] flex-col justify-between pt-28 pb-14 md:pb-20">
+      {/* Eyebrow — sits right under the menu */}
+      <p class="overline text-white/80">Host Your Retreat</p>
+
+      {/* Heading + buttons — bottom of the hero, lots of breathing room */}
       <div class="max-w-2xl text-white">
-        <p class="overline text-white/80">Host Your Retreat</p>
-        <h1 class="mt-4 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-white">
-          Run Your Retreat by the Ocean
+        <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.02] text-white">
+          Run Your Retreat<br /> by the Ocean
         </h1>
-        <p class="mt-6 max-w-xl text-lg text-white/90">
-          An intimate oceanfront venue on Nusa Ceningan for wellness, yoga, masterminds, and group
-          getaways. Infinity pool, ocean-view sauna &amp; cold plunge, and direct beach access —
-          everything your retreat needs, in one quiet setting near Nusa Lembongan.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🌊 Oceanfront · Nusa Ceningan</span>
-          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🔥 Sauna &amp; Cold Plunge</span>
-          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">💧 Infinity Pool</span>
-          <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">🏝️ Whole-resort buyout available</span>
-        </div>
         <div class="mt-9 flex flex-wrap gap-4">
           <a href={contact.whatsappLink} class="btn-primary text-base" target="_blank" rel="noopener">Enquire on WhatsApp ▸</a>
           <a href="#venue" class="btn-secondary border-white/70 text-white hover:bg-white/10">
@@ -98,6 +101,14 @@ const faqSchema = {
           </a>
         </div>
       </div>
+    </div>
+
+    {/* Scroll cue */}
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70" aria-hidden="true">
+      <svg width="22" height="34" viewBox="0 0 22 34" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="1" width="20" height="32" rx="10" />
+        <line x1="11" y1="8" x2="11" y2="14" class="animate-bounce" />
+      </svg>
     </div>
   </section>
 
@@ -373,3 +384,12 @@ const faqSchema = {
     </div>
   </section>
 </Base>
+
+<style>
+  /* Reduced motion: hide hero video, rely on poster image instead */
+  @media (prefers-reduced-motion: reduce) {
+    [data-hero-video] {
+      display: none;
+    }
+  }
+</style>
