@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Utility / conversion pages that are noindex and excluded from the sitemap.
+Disallow: /thank-you
+Disallow: /404
+
 Sitemap: https://segaraseasideresort.netlify.app/sitemap-index.xml
