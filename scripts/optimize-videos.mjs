@@ -3,12 +3,16 @@ import { stat, rename, unlink } from 'fs/promises';
 import { join } from 'path';
 
 const VIDEO_DIR = 'public/video';
+// Hero is a muted, autoplaying background loop, so we drop the audio track
+// entirely (no bytes wasted on a stream nobody hears) and use a gentler CRF
+// than the sauna clip — it's the first thing visitors see and the previous
+// CRF-26 encode looked too compressed. CRF 20 keeps it visibly sharper.
 const VIDEOS = [
   {
     input: 'segara-hero.mp4',
     maxWidth: 1280,
-    crf: 26,
-    audioBitrate: '96k',
+    crf: 20,
+    audioBitrate: null, // strip audio — muted autoplay background video
     label: 'Hero'
   },
   {
@@ -46,8 +50,8 @@ async function optimizeVideo(video) {
       '-crf', String(video.crf),
       '-preset', 'medium',
       '-vf', `scale='min(${video.maxWidth},iw)':-2`,
-      '-c:a', 'aac',
-      '-b:a', video.audioBitrate,
+      // audioBitrate: null → strip the audio track entirely (muted bg video).
+      ...(video.audioBitrate ? ['-c:a', 'aac', '-b:a', video.audioBitrate] : ['-an']),
       '-movflags', '+faststart',
       '-y',
       tmpPath
@@ -73,7 +77,7 @@ async function optimizeVideo(video) {
 }
 
 async function main() {
-  console.log('Optimizing videos with ffmpeg (H.264 + AAC, CRF 26, max 1280px)\n');
+  console.log('Optimizing videos with ffmpeg (H.264, max 1280px, per-video CRF)\n');
 
   for (const v of VIDEOS) {
     await optimizeVideo(v);
