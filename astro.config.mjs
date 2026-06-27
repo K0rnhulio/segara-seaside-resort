@@ -60,6 +60,7 @@ export default defineConfig({
             break;
           case '/terms':
           case '/privacy':
+          case '/imprint':
             // Legal pages: real but low priority, rarely change.
             item.priority = 0.3;
             item.changefreq = 'yearly';

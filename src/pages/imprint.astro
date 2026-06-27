@@ -1,0 +1,121 @@
+---
+/**
+ * Imprint / Impressum page — /imprint
+ * Linked from the footer alongside Privacy and Terms.
+ *
+ * Discloses the operator's legal identity, address, and contact details as
+ * required by transparency regulations (notably the EU Services Act / TMG §5
+ * and similar jurisdictions). Even where not strictly mandated, an imprint
+ * is good practice for any commercial hospitality website and signals trust.
+ */
+import Base from '@layouts/Base.astro';
+import { contact } from '@data/site';
+
+// Full legal operating name of the property, as registered.
+const legalName = 'Segara Seaside Resort Nusa Ceningan Lembongan';
+
+const lastUpdated = '27 June 2026';
+---
+<Base
+  title="Imprint"
+  description="Legal imprint and operator information for Segara Seaside Resort Nusa Ceningan Lembongan — address, contact, and responsibility for website content."
+  noindex={false}
+>
+  <section class="bg-lagoon-700 py-16 text-white md:py-20">
+    <div class="container-content text-center">
+      <p class="overline text-white/70">Legal</p>
+      <h1 class="mt-3 text-[clamp(2rem,4vw,3rem)] text-white">Imprint</h1>
+      <p class="mt-3 text-sm text-white/70">Last updated: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <section class="section bg-paper">
+    <div class="container-content max-w-3xl">
+      <div class="prose-legal">
+        <p class="lead">
+          This imprint provides legally required information about the operator of this website,
+          <a href="https://segaraseasideresort.netlify.app">segaraseasideresort.netlify.app</a>,
+          in accordance with common transparency and disclosure requirements.
+        </p>
+
+        <h2>1. Operator</h2>
+        <p>
+          The website and the resort it represents are operated by:
+        </p>
+        <p>
+          <strong>{legalName}</strong><br />
+          {contact.addressLine1}<br />
+          {contact.addressLine2}
+        </p>
+
+        <h2>2. Contact</h2>
+        <ul>
+          <li>Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li>WhatsApp / Phone: <a href={contact.whatsappLink} target="_blank" rel="noopener">{contact.whatsapp}</a></li>
+          <li>Instagram: <a href={contact.instagramUrl} target="_blank" rel="noopener">{contact.instagram}</a></li>
+        </ul>
+
+        <h2>3. Represented By</h2>
+        <p>
+          {legalName} is represented by its management. For any legal or
+          business enquiries, please contact us using the details above.
+        </p>
+
+        <h2>4. Regulatory Authority</h2>
+        <p>
+          The resort operates under the laws of the Republic of Indonesia and is
+          located within the Klungkung Regency, Bali. Relevant oversight is
+          provided by the local tourism and municipal authorities of
+          Klungkung Regency.
+        </p>
+
+        <h2>5. Tax Identification</h2>
+        <p>
+          Indonesian NPWP (Taxpayer Identification Number) and any applicable
+          business registration numbers are available on request. Please
+          contact us at <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          for invoicing or tax-related documentation.
+        </p>
+
+        <h2>6. Responsibility for Content</h2>
+        <p>
+          Pursuant to common press and media law, responsibility for the
+          content of this website rests with the operator named in section 1.
+          This includes all textual, visual, and multimedia content published
+          on this domain.
+        </p>
+
+        <h2>7. Liability for Links</h2>
+        <p>
+          This website contains links to external third-party websites
+          (including our booking engine, social media profiles, and map
+          services). We have no influence over the content of these linked
+          sites and accept no responsibility for them. The respective
+          providers or operators of those sites are always responsible for
+          their content.
+        </p>
+
+        <h2>8. Copyright</h2>
+        <p>
+          All content (text, images, video, and design) on this website is the
+          property of {legalName} unless otherwise stated and is protected by
+          applicable copyright laws. Reproduction, distribution, or public
+          display of any content without prior written permission is
+          prohibited.
+        </p>
+
+        <h2>9. Dispute Resolution</h2>
+        <p>
+          We are not obliged or willing to participate in dispute resolution
+          proceedings before a consumer arbitration body. Any disputes shall
+          be governed by the laws of the Republic of Indonesia and resolved in
+          the jurisdiction of Klungkung Regency, Bali, Indonesia.
+        </p>
+      </div>
+
+      <div class="mt-12 border-t border-line pt-6">
+        <a href="/" class="btn-ghost">← Back to home</a>
+      </div>
+    </div>
+  </section>
+</Base>
