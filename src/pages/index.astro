@@ -88,16 +88,15 @@ const faqSchema = {
     {/* Legibility gradient (top + bottom) */}
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-lagoon-700/40 via-transparent to-lagoon-700/60"></div>
 
-    <div class="container-bleed relative z-10 py-32">
+    <div class="container-bleed relative z-10 flex min-h-[100svh] flex-col justify-between pt-28 pb-20 md:pb-28">
+      {/* Eyebrow — sits right under the menu */}
+      <p class="overline text-white/90">Boutique Oceanfront Stay · Nusa Ceningan, Bali</p>
+
+      {/* Heading + buttons — bottom of the hero, lots of breathing room */}
       <div class="max-w-2xl">
-        <p class="overline text-white/90">Oceanfront Boutique Resort · Nusa Ceningan</p>
-        <h1 class="mt-4 text-white text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05]">
-          Oceanfront Boutique Resort Near Nusa Lembongan
+        <h1 class="text-white text-[clamp(2.5rem,6vw,5rem)] leading-[1.02]">
+          A Peaceful Escape<br /> Near Nusa Lembongan
         </h1>
-        <p class="mt-6 max-w-xl text-lg text-white/90">
-          Peaceful luxury on Nusa Ceningan, just minutes across the Yellow Bridge.
-          Infinity pool, wellness facilities, and pet-friendly stays steps from Song Tepo Beach.
-        </p>
         <div class="mt-9 flex flex-wrap gap-4">
           <a href="/rooms" class="btn-primary text-base">{cta.label} ▸</a>
           <a href="/rooms" class="btn-secondary border-white/70 text-white hover:bg-white/10">
