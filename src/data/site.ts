@@ -36,7 +36,7 @@ export const nav = [
   { label: 'Wellness', href: '/wellness' },
   { label: 'Retreats', href: '/retreat' },
   { label: 'Location', href: '/location' },
-  { label: 'Getting Here', href: '/getting-here' },
+  { label: 'Transfers', href: '/getting-here' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 
@@ -384,6 +384,7 @@ export const locationPoints = [
   'Just minutes from the Yellow Bridge',
   'Steps from Song Tepo Beach',
   'Easy boat access from Bali (Sanur)',
+  'Door-to-door transfers from anywhere in Bali — incl. private boat & yacht',
   'Perfect base for exploring both Nusa Lembongan and Nusa Ceningan',
 ];
 

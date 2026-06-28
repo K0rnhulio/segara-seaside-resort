@@ -1,13 +1,49 @@
 ---
 /**
- * Getting Here page — /getting-here
+ * Getting Here / Transfers page — /getting-here
  * Practical, high-intent SEO content: "how to get to Nusa Lembongan/Ceningan".
- * Copy provided verbatim by client (2026-06-20).
+ *
+ * Core message: Segara offers door-to-door transfers from anywhere in Bali to
+ * Nusa Ceningan — by private car + fast boat, private speedboat, or private
+ * yacht — arranged on request via WhatsApp. The page doubles as the resort's
+ * signature "Transfers" service page (nav label: "Transfers").
  */
 import Base from '@layouts/Base.astro';
 import { site, contact, booking, generalBookingUrl } from '@data/site';
 
-// Step-by-step from Bali
+// Door-to-door pickup options from Bali — the resort's signature transfer service.
+const pickupOptions = [
+  {
+    icon: 'car',
+    title: 'Private Car + Fast Boat',
+    summary: 'Door-to-door from your hotel, villa, or the airport',
+    body: 'We pick you up anywhere in Bali — airport, hotel, or private villa — in a private car, drive you to the harbour, and take care of the fast-boat crossing to Nusa Lembongan and onward to Segara on Nusa Ceningan.',
+    best: 'Best value · the most popular option',
+  },
+  {
+    icon: 'speedboat',
+    title: 'Private Speedboat',
+    summary: 'Your own boat, on your schedule',
+    body: 'Skip the shared ferry timetable. A dedicated speedboat picks your party up directly from Bali and crosses to Nusa Ceningan/Lembongan on your schedule — faster, private, and entirely flexible.',
+    best: 'Best for families & groups who want privacy',
+  },
+  {
+    icon: 'yacht',
+    title: 'Private Yacht',
+    summary: 'Arrive in true island style',
+    body: 'The most luxurious way to reach us. Charter a private yacht from Bali and turn the journey itself into part of the escape — open water, deck service, and a memorable arrival at Segara.',
+    best: 'The premium arrival · special occasions',
+  },
+  {
+    icon: 'pin',
+    title: 'Pickup Anywhere in Bali',
+    summary: 'Sanur · Ubud · Canggu · Uluwatu · airport & more',
+    body: 'Wherever you are — Ngurah Rai Airport (DPS), Sanur, Seminyak, Canggu, Uluwatu, Ubud, or any private villa — we coordinate the entire journey so you don\'t have to plan a thing. Tell us your starting point and we handle the rest.',
+    best: 'One message, one seamless journey',
+  },
+];
+
+// Step-by-step from Bali (for guests who travel independently)
 const baliSteps = [
   {
     step: '01',
@@ -39,13 +75,6 @@ const arrivalTips = [
   { title: 'Scooter rental', body: 'Available near the boat arrival area on Nusa Lembongan. Make sure to wear a helmet.' },
   { title: 'Weather', body: 'Sea conditions can change quickly. We recommend checking boat schedules the day before travel.' },
   { title: 'SIM Card', body: 'Grab a local SIM card at the airport or in Sanur for easy navigation.' },
-];
-
-// Private transfer services
-const transferServices = [
-  'Private car + fast boat transfers from the airport or your hotel in Bali',
-  'Direct pickup from the boat arrival point in Nusa Lembongan',
-  'Scooter rental upon arrival (we can recommend trusted providers)',
 ];
 
 const breadcrumbSchema = {
@@ -82,7 +111,15 @@ const faqSchema = {
       name: 'Can Segara arrange my transfer from Bali?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. We can arrange private car and fast boat transfers from the airport or your hotel in Bali, plus direct pickup from the boat arrival point on Nusa Lembongan. Let us know your arrival details when you book.',
+        text: 'Yes. We offer door-to-door transfers from anywhere in Bali to Segara on Nusa Ceningan. Options include private car plus fast boat from the airport or your hotel, a dedicated private speedboat on your own schedule, and private yacht charters for a premium arrival. We can also pick you up from Sanur, Ubud, Canggu, Uluwatu, or any private villa. Message us on WhatsApp with your starting point and we\'ll arrange everything.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I arrive at Segara by private boat or yacht?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. As well as the standard fast-boat crossing, we can arrange a private speedboat or a private yacht charter direct from Bali to Nusa Ceningan/Lembongan. A private boat lets you travel on your own schedule, while a yacht turns the journey into part of the experience. Contact us on WhatsApp to arrange it.',
       },
     },
   ],
@@ -90,29 +127,108 @@ const faqSchema = {
 ---
 
 <Base
-  title="How to Get Here | Segara Seaside Resort, Nusa Lembongan & Ceningan"
-  description="Step-by-step guide to reach Segara on Nusa Ceningan from Bali. Fast boat from Sanur, transfers, and directions via the Yellow Bridge to Nusa Lembongan."
+  title="Transfers & How to Get Here | Segara Seaside Resort, Nusa Ceningan"
+  description="Door-to-door transfers from anywhere in Bali to Segara on Nusa Ceningan — private car + fast boat, private speedboat, or private yacht. Pickup from the airport, Sanur, Ubud, Canggu & more."
   image="/images/general/aerial-infinity-pool.jpg"
   schema={[breadcrumbSchema, faqSchema]}
 >
   {/* ─── HERO ─── */}
   <section class="bg-lagoon-700 py-20 text-center text-white md:py-28">
     <div class="container-content">
-      <p class="overline text-white/70">Getting Here</p>
-      <h1 class="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] text-white">How to Get to Segara Seaside Resort</h1>
+      <p class="overline text-white/70">Transfers &amp; Getting Here</p>
+      <h1 class="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] text-white">We'll Get You Here — From Anywhere in Bali</h1>
       <p class="mx-auto mt-5 max-w-2xl text-white/85">
-        Getting to Segara Seaside Resort on Nusa Ceningan is straightforward. Whether you’re coming
-        from Bali or already on Nusa Lembongan, this simple guide will help you reach us easily.
+        Getting to Segara Seaside Resort on Nusa Ceningan has never been easier. We offer door-to-door
+        transfers from anywhere in Bali — by private car and fast boat, private speedboat, or even a
+        private yacht. One message on WhatsApp and we handle the whole journey.
       </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href={contact.whatsappLink} class="btn-primary text-base" target="_blank" rel="noopener">
+          Arrange Your Transfer ▸
+        </a>
+        <a href="#options" class="btn-secondary border-white/70 text-white hover:bg-white/10">
+          See Transfer Options
+        </a>
+      </div>
     </div>
   </section>
 
-  {/* ─── QUICK OVERVIEW ─── */}
-  <section class="section bg-paper">
+  {/* ─── PICKUP / TRANSFER OPTIONS ─── */}
+  <section id="options" class="section bg-paper">
     <div class="container-content">
-      <div class="mx-auto max-w-3xl rounded-lg border border-line bg-seafoam-100 p-8">
-        <h2 class="text-2xl">Quick Overview</h2>
-        <p class="mt-3 text-slate">Most guests reach us in two main steps:</p>
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="overline">Door-to-Door, However You Like to Travel</p>
+        <h2 class="mt-3 text-[clamp(2rem,3.5vw,3rem)]">Four Ways to Reach Segara</h2>
+        <p class="mt-4 text-slate">
+          You don't need to figure out boats, harbours, or the bridge crossing on your own. Choose the
+          option that suits your trip and your group — we arrange the rest.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 md:grid-cols-2">
+        {pickupOptions.map((o) => (
+          <div class="card flex flex-col p-8">
+            <div class="flex items-start gap-4">
+              <div class="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-seafoam-100 text-lagoon-600">
+                {o.icon === 'car' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M5 17h14M6 17l1.5-5.5A2 2 0 0 1 9.4 10h5.2a2 2 0 0 1 1.9 1.5L18 17M7.5 17v2M16.5 17v2" />
+                    <circle cx="8" cy="17" r="1.5" /><circle cx="16" cy="17" r="1.5" />
+                  </svg>
+                )}
+                {o.icon === 'speedboat' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M3 14h16l-2 4H5z" />
+                    <path d="M7 14l2-5h4l2 5" />
+                    <path d="M2 20c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1" />
+                  </svg>
+                )}
+                {o.icon === 'yacht' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 3v12M12 3l6 9H6z" />
+                    <path d="M4 18h16l-2 3H6z" />
+                    <path d="M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1" />
+                  </svg>
+                )}
+                {o.icon === 'pin' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z" />
+                    <circle cx="12" cy="9" r="2.5" />
+                  </svg>
+                )}
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl">{o.title}</h3>
+                <p class="mt-1 text-xs uppercase tracking-wide text-lagoon-600">{o.summary}</p>
+              </div>
+            </div>
+            <p class="mt-4 leading-relaxed text-ink/80">{o.body}</p>
+            <p class="mt-4 rounded bg-seafoam-100 p-3 text-sm text-slate">
+              <span class="font-medium text-lagoon-700">✓</span> {o.best}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-10 max-w-2xl rounded-lg border border-line bg-seafoam-100 p-6 text-center">
+        <p class="text-sm text-ink/80">
+          <strong>Not sure which option is right for you?</strong> Send us a WhatsApp message with your
+          starting point, group size, and dates — we'll recommend the best transfer and confirm the
+          price. Transfers are arranged on request and priced per journey.
+        </p>
+        <a href={contact.whatsappLink} class="btn-primary mt-5" target="_blank" rel="noopener">
+          Message Us on WhatsApp ▸
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ─── QUICK OVERVIEW (the underlying route) ─── */}
+  <section class="section bg-mist">
+    <div class="container-content">
+      <div class="mx-auto max-w-3xl rounded-lg border border-line bg-paper p-8">
+        <h2 class="text-2xl">Prefer to Travel Independently? Here's the Route</h2>
+        <p class="mt-3 text-slate">Whether we arrange it for you or you make your own way, the journey from Bali follows two simple steps:</p>
         <ol class="mt-4 space-y-3">
           <li class="flex items-start gap-3">
             <span class="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-lagoon-600 text-sm text-white">1</span>
@@ -132,7 +248,7 @@ const faqSchema = {
   </section>
 
   {/* ─── STEP BY STEP ─── */}
-  <section class="section bg-mist">
+  <section class="section bg-paper">
     <div class="container-content">
       <div class="mx-auto max-w-2xl text-center">
         <p class="overline">Step-by-Step from Bali</p>
@@ -189,7 +305,7 @@ const faqSchema = {
   </section>
 
   {/* ─── YELLOW BRIDGE ─── */}
-  <section class="section bg-paper">
+  <section class="section bg-mist">
     <div class="container-content">
       <div class="grid items-center gap-12 lg:grid-cols-2">
         <div>
@@ -221,24 +337,47 @@ const faqSchema = {
     </div>
   </section>
 
-  {/* ─── PRIVATE TRANSFER ─── */}
+  {/* ─── HOW TO BOOK YOUR TRANSFER ─── */}
   <section class="section bg-seafoam-100">
     <div class="container-content">
       <div class="mx-auto max-w-3xl">
         <p class="overline">Hassle-Free Arrival</p>
-        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">Private Transfer &amp; Airport Pickup</h2>
+        <h2 class="mt-3 text-[clamp(1.75rem,3vw,2.5rem)]">How to Book Your Transfer</h2>
         <p class="mt-5 max-w-prose text-slate">
-          If you prefer a hassle-free arrival, we can help arrange everything. Just let us know your
-          arrival details when you book, and we’ll be happy to assist.
+          Every transfer is arranged personally and priced per journey, so it fits your group and your
+          schedule — not a fixed timetable. The quickest way to lock it in is a quick WhatsApp message.
         </p>
-        <ul class="mt-8 space-y-3">
-          {transferServices.map((service) => (
-            <li class="flex items-start gap-3 rounded-lg border border-line bg-paper p-4">
-              <span class="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-lagoon-600 text-xs text-white">✓</span>
-              <span class="text-sm text-ink/80">{service}</span>
-            </li>
-          ))}
-        </ul>
+        <ol class="mt-8 space-y-4">
+          <li class="flex items-start gap-4 rounded-lg border border-line bg-paper p-5">
+            <span class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-lagoon-600 text-sm text-white">1</span>
+            <div>
+              <p class="font-medium text-ink">Tell us your starting point</p>
+              <p class="mt-1 text-sm text-slate">Airport, hotel, villa, or area in Bali — and your travel dates, group size, and luggage.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4 rounded-lg border border-line bg-paper p-5">
+            <span class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-lagoon-600 text-sm text-white">2</span>
+            <div>
+              <p class="font-medium text-ink">We recommend the best option</p>
+              <p class="mt-1 text-sm text-slate">Private car + fast boat, speedboat, or yacht — and confirm the price for your journey.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4 rounded-lg border border-line bg-paper p-5">
+            <span class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-lagoon-600 text-sm text-white">3</span>
+            <div>
+              <p class="font-medium text-ink">Relax — we meet you and bring you to Segara</p>
+              <p class="mt-1 text-sm text-slate">From pickup in Bali right to our door on Nusa Ceningan, with onward transport across the Yellow Bridge handled.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href={contact.whatsappLink} class="btn-primary text-base" target="_blank" rel="noopener">
+            Arrange Your Transfer on WhatsApp ▸
+          </a>
+          <a href={generalBookingUrl} class="btn-secondary" target="_blank" rel="noopener">
+            Book Your Stay
+          </a>
+        </div>
       </div>
     </div>
   </section>
