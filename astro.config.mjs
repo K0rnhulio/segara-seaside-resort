@@ -49,6 +49,7 @@ export default defineConfig({
           case '/retreat':
           case '/location':
           case '/getting-here':
+          case '/about':
             item.priority = 0.7;
             item.changefreq = 'monthly';
             item.img = [img('/images/general/aerial-infinity-pool.jpg')];

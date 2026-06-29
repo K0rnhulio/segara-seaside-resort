@@ -37,6 +37,7 @@ export const nav = [
   { label: 'Retreats', href: '/retreat' },
   { label: 'Location', href: '/location' },
   { label: 'Transfers', href: '/getting-here' },
+  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 
@@ -663,6 +664,108 @@ export const retreatFaqs: FAQItem[] = [
     question: 'How do I enquire about hosting a retreat?',
     answer:
       'The simplest way is to message us on WhatsApp with a few details about your retreat — your dates, group size, and the kind of program you are planning. Our team will help you put together the right combination of rooms, spaces, catering, and experiences for your group.',
+  },
+];
+
+/**
+ * About / evergreen SEO page — /about
+ *
+ * An authority page built for search + AI citation. Nusa Lembongan is the
+ * primary keyword (≈5× the search volume of "Nusa Ceningan"), while Nusa
+ * Ceningan is kept accurate — positioned as "the island connected to Nusa
+ * Lembongan" — so the page ranks for both terms without misstating the
+ * resort's actual location. The page also ships LodgingBusiness + FAQPage
+ * JSON-LD for rich results and reliable AI-entity parsing.
+ */
+
+export type Highlight = { title: string; body: string };
+export type QuickFact = { attribute: string; detail: string };
+
+// "Key Highlights" grid — the resort's USPs, Lembongan-weighted.
+export const aboutHighlights: Highlight[] = [
+  {
+    title: 'Direct oceanfront location',
+    body: 'A true seaside atmosphere on Nusa Ceningan, the island right beside Nusa Lembongan.',
+  },
+  {
+    title: 'Infinity pool with ocean view',
+    body: 'For relaxing, sunbathing, and soaking in the tropical surroundings of the islands.',
+  },
+  {
+    title: 'Sauna & wellness',
+    body: 'A unique recovery and wellbeing highlight among Nusa Lembongan resorts.',
+  },
+  {
+    title: 'Boutique bungalows & villas',
+    body: 'Privacy, comfort, and a peaceful oceanfront setting near Nusa Lembongan.',
+  },
+  {
+    title: 'Restaurant & pool bar',
+    body: 'Relaxed dining and drinks by the pool and ocean, all day and into sunset.',
+  },
+  {
+    title: 'Open to day guests',
+    body: 'Pool, sauna, and restaurant access via a minimum spend — no overnight stay required.',
+  },
+  {
+    title: 'Strategic location',
+    body: 'Connected to Nusa Lembongan by the Yellow Bridge and close to Nusa Penida for island-hopping.',
+  },
+];
+
+// Quick Facts table — formatted for AI extraction & Google featured snippets.
+export const aboutQuickFacts: QuickFact[] = [
+  { attribute: 'Name', detail: 'Segara Seaside Resort' },
+  { attribute: 'Type', detail: 'Boutique resort / lodging' },
+  {
+    attribute: 'Location',
+    detail: 'Nusa Ceningan — the island connected to Nusa Lembongan, Bali, Indonesia',
+  },
+  { attribute: 'Setting', detail: 'Direct oceanfront / seaside' },
+  { attribute: 'Accommodation', detail: 'Bungalows and villas' },
+  { attribute: 'Wellness', detail: 'Infinity pool (ocean view), sauna' },
+  { attribute: 'Dining', detail: 'Restaurant and pool bar' },
+  {
+    attribute: 'Day guests',
+    detail: 'Welcome — pool, sauna & restaurant via minimum spend',
+  },
+  {
+    attribute: 'Ideal for',
+    detail: 'Relaxation, wellness, nature, ocean views, sunset dining',
+  },
+  {
+    attribute: 'Nearby islands',
+    detail: 'Nusa Lembongan (across the Yellow Bridge), Nusa Penida',
+  },
+];
+
+// FAQ — Nusa Lembongan keyword-weighted; targets AI / voice-search intent.
+// Feeds both the visible accordion and the FAQPage JSON-LD on /about.
+export const aboutFaqs: FAQItem[] = [
+  {
+    question: 'Where is Segara Seaside Resort located?',
+    answer:
+      'Segara Seaside Resort is an oceanfront resort on Nusa Ceningan, the island connected to Nusa Lembongan by the Yellow Bridge — a short distance from Nusa Lembongan’s beaches and close to Nusa Penida, Bali, Indonesia.',
+  },
+  {
+    question: 'Is Segara Seaside Resort near Nusa Lembongan?',
+    answer:
+      'Yes. The resort sits on neighboring Nusa Ceningan, directly connected to Nusa Lembongan by the Yellow Bridge, making it an easy trip from Nusa Lembongan — usually just a few minutes by scooter or on foot.',
+  },
+  {
+    question: 'Can day guests visit Segara Seaside Resort without staying overnight?',
+    answer:
+      'Yes. Outside visitors can access the pool, sauna, and restaurant through a minimum spend, without booking an overnight stay. It is a popular day-trip option for travelers staying on Nusa Lembongan or Nusa Penida.',
+  },
+  {
+    question: 'What wellness facilities does Segara Seaside Resort offer?',
+    answer:
+      'The resort features an infinity pool with ocean view and a sauna, available to both hotel guests and outside visitors — a rare wellness highlight among Nusa Lembongan resorts.',
+  },
+  {
+    question: 'What types of accommodation does Segara Seaside Resort offer?',
+    answer:
+      'Segara offers stylish boutique bungalows and villas designed for privacy, comfort, and a peaceful oceanfront setting near Nusa Lembongan.',
   },
 ];
 
