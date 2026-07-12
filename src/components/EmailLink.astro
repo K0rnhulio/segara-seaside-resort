@@ -1,0 +1,24 @@
+---
+/**
+ * mailto: link that opts out of Cloudflare Email Address Obfuscation.
+ *
+ * Without this, Cloudflare rewrites visible emails into
+ * /cdn-cgi/l/email-protection links with "[email protected]" anchor text —
+ * which SEO tools flag and which look broken to some crawlers.
+ *
+ * Docs: https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/
+ */
+import { contact } from '@data/site';
+
+interface Props {
+  class?: string;
+  email?: string;
+}
+
+const { class: className = '', email = contact.email } = Astro.props;
+// Render as one HTML fragment so Cloudflare sees the email_off markers
+// tightly wrapping the real address (not stripped by minifiers/components).
+const html = `<!--email_off--><a href="mailto:${email}"${className ? ` class="${className}"` : ''}>${email}</a><!--/email_off-->`;
+---
+
+<Fragment set:html={html} />

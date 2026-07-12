@@ -9,6 +9,7 @@
  * is good practice for any commercial hospitality website and signals trust.
  */
 import Base from '@layouts/Base.astro';
+import EmailLink from '@components/EmailLink.astro';
 import { site, contact } from '@data/site';
 
 // Full legal operating name of the property, as registered.
@@ -50,7 +51,7 @@ const lastUpdated = '27 June 2026';
 
         <h2>2. Contact</h2>
         <ul>
-          <li>Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li>Email: <EmailLink /></li>
           <li>WhatsApp / Phone: <a href={contact.whatsappLink} target="_blank" rel="noopener">{contact.whatsapp}</a></li>
           <li>Instagram: <a href={contact.instagramUrl} target="_blank" rel="noopener">{contact.instagram}</a></li>
         </ul>
@@ -73,7 +74,7 @@ const lastUpdated = '27 June 2026';
         <p>
           Indonesian NPWP (Taxpayer Identification Number) and any applicable
           business registration numbers are available on request. Please
-          contact us at <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          contact us at <EmailLink />
           for invoicing or tax-related documentation.
         </p>
 

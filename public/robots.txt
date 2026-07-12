@@ -6,6 +6,10 @@ Allow: /
 Disallow: /thank-you
 Disallow: /404
 
+# Cloudflare internal endpoints (email protection, challenge scripts, etc.).
+# Prevents SEO tools from flagging /cdn-cgi/l/email-protection as a site page.
+Disallow: /cdn-cgi/
+
 # Preferred sitemap URL for crawlers and SEO auditors (also available as
 # sitemap-index.xml / sitemap-0.xml from @astrojs/sitemap).
 Sitemap: https://segaraseasideresort.com/sitemap.xml

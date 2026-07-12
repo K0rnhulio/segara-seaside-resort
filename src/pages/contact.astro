@@ -12,6 +12,7 @@
  *       or convert submit to a WhatsApp deep-link for zero-backend MVP.
  */
 import Base from '@layouts/Base.astro';
+import EmailLink from '@components/EmailLink.astro';
 import { site, contact, booking, generalBookingUrl } from '@data/site';
 
 const breadcrumbSchema = {
@@ -220,9 +221,7 @@ const localBusinessSchema = {
             </div>
             <div class="rounded-lg border border-line bg-mist p-5">
               <h3 class="text-xs uppercase tracking-wide text-slate">Email</h3>
-              <a href={`mailto:${contact.email}`} class="mt-1 block text-sm text-lagoon-600 hover:underline">
-                {contact.email}
-              </a>
+              <EmailLink class="mt-1 block text-sm text-lagoon-600 hover:underline" />
             </div>
             <div class="rounded-lg border border-line bg-mist p-5">
               <h3 class="text-xs uppercase tracking-wide text-slate">Phone / WhatsApp</h3>

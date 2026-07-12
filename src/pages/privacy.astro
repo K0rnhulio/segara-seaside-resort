@@ -5,6 +5,7 @@
  * Covers data collection via the contact form, cookies, and third-party embeds.
  */
 import Base from '@layouts/Base.astro';
+import EmailLink from '@components/EmailLink.astro';
 import { site, contact } from '@data/site';
 
 const lastUpdated = '26 June 2026';
@@ -115,7 +116,7 @@ const lastUpdated = '26 June 2026';
           protection rights, please contact us:
         </p>
         <ul>
-          <li>Email: <a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li>Email: <EmailLink /></li>
           <li>WhatsApp: <a href={contact.whatsappLink} target="_blank" rel="noopener">{contact.whatsapp}</a></li>
         </ul>
 

@@ -4,6 +4,7 @@
  * Newsletter intentionally omitted (replaced by Instagram feed on home).
  * See wireframes footer + sitemap §4.
  */
+import EmailLink from '@components/EmailLink.astro';
 import { site, contact, nav, cta } from '@data/site';
 
 const year = new Date().getFullYear();
@@ -64,7 +65,7 @@ const year = new Date().getFullYear();
             </a>
           </p>
           <p>
-            <a href={`mailto:${contact.email}`} class="hover:text-white">{contact.email}</a>
+            <EmailLink class="hover:text-white" />
           </p>
           <p>
             <a href={contact.instagramUrl} class="hover:text-white" target="_blank" rel="noopener">
