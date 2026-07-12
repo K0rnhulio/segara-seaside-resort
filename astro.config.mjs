@@ -6,9 +6,9 @@ import { site, rooms } from './src/data/site.ts';
 // Tailwind v3 is wired through PostCSS (postcss.config.mjs) rather than the
 // @astrojs/tailwind integration, which was removed in Astro 7.
 export default defineConfig({
-  // NOTE: .com is a separate Cloudflare site that 404s on /images/* (breaks
-  // social previews). Use the Netlify URL that serves the full site + assets.
-  site: 'https://segaraseasideresort.netlify.app',
+  // Production domain — used for canonical URLs, Open Graph, and sitemap locs.
+  site: 'https://segaraseasideresort.com',
+  trailingSlash: 'always',
   integrations: [
     sitemap({
       // Drop non-indexable utility pages. /404 and /thank-you are both
@@ -21,8 +21,7 @@ export default defineConfig({
       // lastmod is consumed by Google and is the single most valuable field
       // here — it lets crawlers skip refetching unchanged pages. priority and
       // changefreq are formally ignored by Google but still read by Bing,
-      // Yandex, and 2025-era AI crawlers (GPTBot, ClaudeBot, PerplexityBot,
-      // AppleBot-Extended) as freshness / importance hints, so we set them.
+      // Yandex, and AI crawlers as freshness / importance hints.
       serialize: (item) => {
         const path = item.url.replace(site.url, '').replace(/\/$/, '') || '/';
         item.lastmod = new Date();
@@ -44,7 +43,7 @@ export default defineConfig({
           case '/wellness':
             item.priority = 0.7;
             item.changefreq = 'monthly';
-            item.img = [img('/images/general/infinity-pool-bar.jpg')];
+            item.img = [img('/images/general/ocean-view-sauna.jpg')];
             break;
           case '/retreat':
           case '/location':

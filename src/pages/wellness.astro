@@ -118,13 +118,21 @@ const wellnessSchema = {
   description:
     "Bali's only ocean-view Finnish cedar sauna and cold plunge on Nusa Ceningan island. Open to resort guests and day visitors with minimum spend at the restaurant and bar.",
   url: `${site.url}/wellness`,
-  telephone: '+628226629425',
+  telephone: contact.telephone,
+  image: `${site.url}/images/general/ocean-view-sauna.jpg`,
   address: {
     '@type': 'PostalAddress',
+    streetAddress: contact.addressLine1,
     addressLocality: 'Nusa Ceningan',
     addressRegion: 'Bali',
     addressCountry: 'ID',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.latitude,
+    longitude: site.geo.longitude,
+  },
+  sameAs: contact.sameAs,
 };
 
 const breadcrumbSchema = {

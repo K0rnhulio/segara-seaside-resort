@@ -5,7 +5,7 @@
  * Per docs/02-sitemap.md.
  */
 import Base from '@layouts/Base.astro';
-import { rooms, site, reviews } from '@data/site';
+import { rooms, site, contact, reviews } from '@data/site';
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -38,18 +38,28 @@ const roomsLodgingSchema = {
     'Choose from elegant Deluxe Bungalows with sea views or our spacious Two-Bedroom Villa with Private Pool. Boutique oceanfront accommodation on Nusa Ceningan, near Nusa Lembongan.',
   url: `${site.url}/rooms`,
   image: `${site.url}/images/rooms/two-bedroom-villa.jpg`,
+  telephone: contact.telephone,
   starRating: { '@type': 'Rating', ratingValue: '3' },
   priceRange: '$$$',
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: String(reviews.googleRating),
     reviewCount: String(reviews.googleCount),
+    bestRating: '5',
+    worstRating: '1',
   },
   address: {
     '@type': 'PostalAddress',
+    streetAddress: contact.addressLine1,
     addressLocality: 'Nusa Ceningan',
     addressRegion: 'Bali',
+    postalCode: '80771',
     addressCountry: 'ID',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.latitude,
+    longitude: site.geo.longitude,
   },
 };
 ---

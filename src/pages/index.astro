@@ -24,10 +24,16 @@ import {
 const hotelSchema = {
   '@context': 'https://schema.org',
   '@type': 'Hotel',
+  '@id': `${site.url}/#hotel`,
   name: site.name,
   description: site.description,
   url: site.url,
-  image: `${site.url}/segara-og-default.svg`,
+  image: [
+    `${site.url}/images/general/aerial-infinity-pool.jpg`,
+    `${site.url}/images/segara-og-share.jpg`,
+  ],
+  telephone: contact.telephone,
+  email: contact.email,
   priceRange: '$$$',
   starRating: { '@type': 'Rating', ratingValue: '3' },
   address: {
@@ -35,12 +41,22 @@ const hotelSchema = {
     streetAddress: contact.addressLine1,
     addressLocality: 'Nusa Ceningan',
     addressRegion: 'Bali',
+    postalCode: '80771',
     addressCountry: 'ID',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.latitude,
+    longitude: site.geo.longitude,
+  },
+  hasMap: 'https://www.google.com/maps/place/Segara+Seaside+Resort',
+  sameAs: contact.sameAs,
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: reviews.googleRating,
     reviewCount: reviews.googleCount,
+    bestRating: '5',
+    worstRating: '1',
   },
   amenityFeature: valueProps.map((v) => ({
     '@type': 'LocationFeatureSpecification',

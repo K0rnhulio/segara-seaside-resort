@@ -9,7 +9,7 @@
  * is good practice for any commercial hospitality website and signals trust.
  */
 import Base from '@layouts/Base.astro';
-import { contact } from '@data/site';
+import { site, contact } from '@data/site';
 
 // Full legal operating name of the property, as registered.
 const legalName = 'Segara Seaside Resort Nusa Ceningan Lembongan';
@@ -34,7 +34,7 @@ const lastUpdated = '27 June 2026';
       <div class="prose-legal">
         <p class="lead">
           This imprint provides legally required information about the operator of this website,
-          <a href="https://segaraseasideresort.netlify.app">segaraseasideresort.netlify.app</a>,
+          <a href={site.url}>{site.domain}</a>,
           in accordance with common transparency and disclosure requirements.
         </p>
 

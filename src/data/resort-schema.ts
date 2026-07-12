@@ -7,22 +7,34 @@
  * (Google rating 4.9, 148 reviews). Embedded review bodies below are
  * sample testimonials carried over from the client-provided schema.
  */
-import { reviews } from './site';
+import { site, contact, reviews } from './site';
 
 export const resortSchema = {
   '@context': 'https://schema.org',
   '@type': 'Resort',
-  name: 'Segara Seaside Resort',
-  url: 'https://segaraseasideresort.netlify.app/#rooms',
-  image: 'https://segaraseasideresort.netlify.app/images/general/aerial-infinity-pool.jpg',
+  '@id': `${site.url}/#resort`,
+  name: site.name,
+  url: site.url,
+  image: `${site.url}/images/general/aerial-infinity-pool.jpg`,
   description:
-    'Beachfront 2-bedroom villas with private pools, an infinity pool blending into the Indian Ocean, and Bali\'s only ocean-view Finnish cedar sauna and cold plunge.',
+    "Beachfront 2-bedroom villas with private pools, an infinity pool blending into the Indian Ocean, and Bali's only ocean-view Finnish cedar sauna and cold plunge.",
+  telephone: contact.telephone,
+  email: contact.email,
+  priceRange: '$$$',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: contact.addressLine1,
     addressLocality: 'Nusa Ceningan',
     addressRegion: 'Bali',
+    postalCode: '80771',
     addressCountry: 'ID',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.latitude,
+    longitude: site.geo.longitude,
+  },
+  sameAs: contact.sameAs,
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: reviews.googleRating,

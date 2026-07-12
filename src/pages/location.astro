@@ -95,19 +95,23 @@ const placeSchema = {
     'Oceanfront boutique resort on Nusa Ceningan, near Nusa Lembongan, Bali. Steps from Song Tepo Beach and the Yellow Bridge.',
   url: `${site.url}/location`,
   image: `${site.url}/images/general/aerial-infinity-pool.jpg`,
+  telephone: contact.telephone,
+  email: contact.email,
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: -8.6968955,
-    longitude: 115.4498182,
+    latitude: site.geo.latitude,
+    longitude: site.geo.longitude,
   },
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Song Tepo Beach',
+    streetAddress: contact.addressLine1,
     addressLocality: 'Nusa Ceningan',
     addressRegion: 'Bali',
+    postalCode: '80771',
     addressCountry: 'ID',
   },
   hasMap: 'https://www.google.com/maps/place/Segara+Seaside+Resort',
+  sameAs: contact.sameAs,
 };
 
 const breadcrumbSchema = {

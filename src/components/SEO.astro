@@ -18,7 +18,7 @@ interface Props {
 const {
   title,
   description = site.description,
-  image = '/images/segara-og-share.jpg', // default social share image (1200x630 JPG)
+  image = site.defaultOgImage, // default social share image (1200x630 JPG)
   canonical,
   noindex = false,
   schema,
@@ -27,23 +27,34 @@ const {
 // Title formula: "Primary Keyword | Brand" (per keyword doc §5.2)
 // Only append brand if the title doesn't already contain "Segara"
 const fullTitle = /segara/i.test(title) ? title : `${title} | ${site.name}`;
-const canonicalURL = new URL(canonical ?? Astro.url.pathname, site.url);
+// Prefer trailing-slash URLs to match sitemap + trailingSlash: 'always'
+const path = (canonical ?? Astro.url.pathname).replace(/\/?$/, '/') || '/';
+const canonicalURL = new URL(path === '//' ? '/' : path, site.url);
 const ogImage = new URL(image, site.url);
-
-// Social image dimensions — helps platforms render cards faster
-const isDefaultOG = image === '/images/segara-og-share.jpg';
-const ogWidth = isDefaultOG ? 1200 : 1200;
-const ogHeight = isDefaultOG ? 630 : 630;
+const ogWidth = 1200;
+const ogHeight = 630;
 const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0F3D47" />
+<meta name="format-detection" content="telephone=yes" />
+<meta name="geo.region" content="ID-BA" />
+<meta name="geo.placename" content="Nusa Ceningan, Bali" />
+<meta name="geo.position" content={`${site.geo.latitude};${site.geo.longitude}`} />
+<meta name="ICBM" content={`${site.geo.latitude}, ${site.geo.longitude}`} />
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  )
+}
 
 {/* Open Graph — rich social sharing (Facebook, WhatsApp, LinkedIn, etc.) */}
 <meta property="og:type" content="website" />

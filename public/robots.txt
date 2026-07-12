@@ -1,3 +1,4 @@
+# Segara Seaside Resort - https://segaraseasideresort.com
 User-agent: *
 Allow: /
 
@@ -5,4 +6,6 @@ Allow: /
 Disallow: /thank-you
 Disallow: /404
 
-Sitemap: https://segaraseasideresort.netlify.app/sitemap-index.xml
+# Preferred sitemap URL for crawlers and SEO auditors (also available as
+# sitemap-index.xml / sitemap-0.xml from @astrojs/sitemap).
+Sitemap: https://segaraseasideresort.com/sitemap.xml

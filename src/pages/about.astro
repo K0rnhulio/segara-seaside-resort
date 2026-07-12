@@ -23,10 +23,6 @@ import {
   aboutFaqs,
 } from '@data/site';
 
-// Real coordinates (shared with the contact + location pages).
-const latitude = -8.6968955;
-const longitude = 115.4498182;
-
 // Structured data — LodgingBusiness (entity for AI/Google) + BreadcrumbList +
 // FAQPage. Built from real site/contact data: no placeholders.
 const lodgingSchema = {
@@ -38,6 +34,8 @@ const lodgingSchema = {
     'Oceanfront boutique resort on Nusa Ceningan, the island connected to Nusa Lembongan, Bali. Features an infinity pool, sauna, restaurant, and pool bar. Open to day guests via minimum spend.',
   url: `${site.url}/about`,
   image: `${site.url}/images/general/aerial-infinity-pool.jpg`,
+  telephone: contact.telephone,
+  email: contact.email,
   priceRange: '$$',
   starRating: { '@type': 'Rating', ratingValue: '4' },
   address: {
@@ -45,13 +43,20 @@ const lodgingSchema = {
     streetAddress: contact.addressLine1,
     addressLocality: 'Nusa Ceningan',
     addressRegion: 'Bali',
+    postalCode: '80771',
     addressCountry: 'ID',
   },
-  geo: { '@type': 'GeoCoordinates', latitude, longitude },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.latitude,
+    longitude: site.geo.longitude,
+  },
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: reviews.googleRating,
     reviewCount: reviews.googleCount,
+    bestRating: '5',
+    worstRating: '1',
   },
   areaServed: ['Nusa Lembongan', 'Nusa Ceningan', 'Nusa Penida'],
   containsPlace: {
@@ -67,7 +72,7 @@ const lodgingSchema = {
     { '@type': 'LocationFeatureSpecification', name: 'Day guests welcome', value: true },
   ],
   availableLanguage: ['English', 'Indonesian'],
-  sameAs: [contact.instagramUrl, contact.facebook, contact.tiktok],
+  sameAs: contact.sameAs,
 };
 
 const breadcrumbSchema = {

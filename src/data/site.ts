@@ -7,21 +7,27 @@
 export const site = {
   name: 'Segara Seaside Resort',
   tagline: 'Boutique oceanfront stay near Nusa Lembongan',
-  domain: 'segaraseasideresort.netlify.app',
-  // NOTE: the .com domain is a separate Cloudflare-hosted site that does not
-  // serve /images/* (404), which breaks WhatsApp/social link previews. Until
-  // .com is fully deployed (including the OG image), point canonical/OG URLs
-  // at the Netlify domain that actually serves the full site + assets.
-  url: 'https://segaraseasideresort.netlify.app',
+  domain: 'segaraseasideresort.com',
+  // Production domain — serves full site + /images/* (canonical, OG, sitemap).
+  url: 'https://segaraseasideresort.com',
   description:
     'Discover a peaceful boutique resort near Nusa Lembongan on Nusa Ceningan. Infinity pool, sauna & cold plunge, pet-friendly stays, and steps from Song Tepo Beach. Book direct for the best experience.',
   locale: 'en_US',
+  // Shared OG / schema image (absolute path; SEO.astro prefixes with site.url)
+  defaultOgImage: '/images/segara-og-share.jpg',
+  // Local SEO — Song Tepo Beach, Nusa Ceningan (Google Maps pin)
+  geo: {
+    latitude: -8.6968955,
+    longitude: 115.4498182,
+  },
 } as const;
 
 export const contact = {
   addressLine1: 'Song Tepo Beach',
   addressLine2: 'Nusa Ceningan, Klungkung, Bali, Indonesia',
   whatsapp: '+62 822 6629 4250',
+  /** E.164 for schema.org telephone + WhatsApp deep links */
+  telephone: '+6282266294250',
   whatsappLink: 'https://wa.me/6282266294250',
   email: 'hello@segaraseasideresort.com',
   instagram: '@segaraseaside',
@@ -29,6 +35,12 @@ export const contact = {
   facebook: 'https://www.facebook.com/profile.php?id=61558200825451',
   tiktok: 'https://www.tiktok.com/@segaraseaside',
   tiktokHandle: '@segaraseaside',
+  /** Social profile URLs for schema sameAs */
+  sameAs: [
+    'https://www.instagram.com/segaraseaside/',
+    'https://www.facebook.com/profile.php?id=61558200825451',
+    'https://www.tiktok.com/@segaraseaside',
+  ],
 } as const;
 
 export const nav = [

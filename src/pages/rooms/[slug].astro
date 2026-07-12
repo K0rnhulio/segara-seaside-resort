@@ -40,26 +40,18 @@ const breadcrumbSchema = {
   ],
 };
 
-// LodgingBusiness / Room schema for SEO — includes price offer + occupancy
+// HotelRoom schema for SEO — includes price offer + occupancy
 const roomSchema = {
   '@context': 'https://schema.org',
-  '@type': 'LodgingBusiness',
-  name: `${site.name} — ${room.name}`,
+  '@type': 'HotelRoom',
+  name: room.name,
   description: room.longDescription,
   url: `${site.url}${room.href}`,
-  image: `${site.url}${room.image}`,
-  starRating: { '@type': 'Rating', ratingValue: '3' },
-  priceRange: '$$$',
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: String(reviews.googleRating),
-    reviewCount: String(reviews.googleCount),
-  },
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Nusa Ceningan',
-    addressRegion: 'Bali',
-    addressCountry: 'ID',
+  image: room.gallery.map((g) => `${site.url}${g}`),
+  bed: room.specs.beds,
+  occupancy: {
+    '@type': 'QuantitativeValue',
+    maxValue: room.specs.sleeps,
   },
   amenityFeature: room.amenityGroups
     .flatMap((g) => g.items)
@@ -67,19 +59,32 @@ const roomSchema = {
       '@type': 'LocationFeatureSpecification',
       name: a,
     })),
+  containsPlace: {
+    '@type': 'Hotel',
+    name: site.name,
+    url: site.url,
+    telephone: contact.telephone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: contact.addressLine1,
+      addressLocality: 'Nusa Ceningan',
+      addressRegion: 'Bali',
+      addressCountry: 'ID',
+    },
+  },
   // Price + occupancy offer
-  makesOffer: {
+  offers: {
     '@type': 'Offer',
+    url: `${site.url}${room.href}`,
+    priceCurrency: 'IDR',
+    price: room.priceFromIDR,
+    availability: 'https://schema.org/InStock',
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
       price: room.priceFromIDR,
       priceCurrency: 'IDR',
       referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'DAY' },
     },
-  },
-  occupancy: {
-    '@type': 'QuantitativeValue',
-    maxValue: room.specs.sleeps,
   },
 };
 ---
