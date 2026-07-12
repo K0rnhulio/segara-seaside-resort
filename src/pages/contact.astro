@@ -224,7 +224,9 @@ const localBusinessSchema = {
             </div>
             <div class="rounded-lg border border-line bg-mist p-5">
               <h3 class="text-xs uppercase tracking-wide text-slate">Phone / WhatsApp</h3>
-              <p class="mt-1 text-sm text-ink/80">{contact.whatsapp}</p>
+              <a href={`tel:${contact.whatsapp.replace(/\s/g, '')}`} class="mt-1 block text-sm text-lagoon-600 hover:underline">
+                {contact.whatsapp}
+              </a>
             </div>
           </div>
 
