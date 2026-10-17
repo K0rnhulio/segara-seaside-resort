@@ -40,7 +40,7 @@ const breadcrumbSchema = {
   ],
 };
 
-// HotelRoom schema for SEO — includes price offer + occupancy
+// HotelRoom schema for SEO — includes occupancy (no price: rates live on SiteMinder)
 const roomSchema = {
   '@context': 'https://schema.org',
   '@type': 'HotelRoom',
@@ -70,20 +70,6 @@ const roomSchema = {
       addressLocality: 'Nusa Ceningan',
       addressRegion: 'Bali',
       addressCountry: 'ID',
-    },
-  },
-  // Price + occupancy offer
-  offers: {
-    '@type': 'Offer',
-    url: `${site.url}${room.href}`,
-    priceCurrency: 'IDR',
-    price: room.priceFromIDR,
-    availability: 'https://schema.org/InStock',
-    priceSpecification: {
-      '@type': 'UnitPriceSpecification',
-      price: room.priceFromIDR,
-      priceCurrency: 'IDR',
-      referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'DAY' },
     },
   },
 };
@@ -201,9 +187,18 @@ const roomSchema = {
         {/* Right: sticky booking card */}
         <aside class="lg:sticky lg:top-24 lg:self-start">
           <div class="rounded-lg border border-line bg-mist p-6 shadow-sm" data-booking-card>
-            <p class="text-sm text-slate">From</p>
-            <p class="font-serif text-3xl text-brass-600">{room.priceFromLabel}</p>
-            <p class="text-sm text-slate">per night · taxes included</p>
+            {/* No fixed price here: rates change by date, so we send guests
+                 straight to SiteMinder for live pricing. */}
+            <p class="text-sm text-slate">Rates vary by date</p>
+            <a
+              href={fallbackBookingUrl}
+              class="font-serif text-3xl text-brass-600 hover:underline"
+              data-booking-link
+              target="_blank"
+              rel="noopener"
+            >
+              Check pricing ▸
+            </a>
 
             {/* Date / guest selectors — drive the booking URL client-side.
                  The script at the bottom reads these and rebuilds the
@@ -313,9 +308,6 @@ const roomSchema = {
               <p class="overline">{r.overline}</p>
               <h3 class="mt-2 text-xl">{r.name}</h3>
               <p class="mt-2 text-sm text-slate line-clamp-2">{r.shortDescription}</p>
-              <p class="mt-4 text-sm text-slate">
-                From <span class="font-medium text-brass-600">{r.priceFromLabel}</span> / night
-              </p>
             </div>
           </a>
         ))}
